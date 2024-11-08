@@ -251,7 +251,7 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;a href=javascript:alert(1)&gt;aaa&lt;/a&gt;</span><br><span class="line">实体转移（）：&lt;a href=&quot;javascript:alert&amp;#40;1&amp;#41;&quot;&gt;aaa&lt;/a&gt;</span><br></pre></td></tr></table></figure>
 
 <p><em><strong>为了应对实体代码转义，我们可以：</strong></em></p>
-<p><strong>十进制绕过</strong>，这样就可以简单地绕过实体编码转义啦？</p>
+<p><strong>十进制绕过</strong>，这样就可以简单地绕过实体编码转义啦</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;a href=javascript:alert(1)&gt;aaa&lt;/a&gt;</span><br><span class="line">&lt;a href=javascript&amp;#58;alert(1)&gt;aaa&lt;/a&gt;</span><br><span class="line">在这里把：替换为&amp;#58；（分号可以省略）</span><br></pre></td></tr></table></figure>
 
 <p><strong>十六进制绕过</strong>(如果题目过滤了分号，这里其实也可以把分号删去)</p>
