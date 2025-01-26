@@ -190,6 +190,7 @@
 
 <p>//<svg onload="javascript:alert(1)">onload表示只要完成加载就会触发的js函数</p>
 <h3 id="5-插入到HTTP响应中"><a href="#5-插入到HTTP响应中" class="headerlink" title="**5.插入到HTTP响应中"></a>**5.插入到HTTP响应中</h3><p><a target="_blank" rel="noopener" href="http://localhost/xss-labs/level11.php?keyword=good%20job">http://localhost/xss-labs/level11.php?keyword=good%20job</a>!</p>
+<p>请注意：本题需要从第10题进入否则无法得到注入点！</p>
 <p>例如本题，本题中，xss注入点为t_ref传参，根据观察不难看出该参数的值=referer头（经过部分过滤）</p>
 <p>所以可以在请求包中更改referer头，填写payload。</p>
 <p>（当然，referer头需要在跳转页面拦截（笑）---&gt;服务器可能不会理会页面刷新时的referer头更新情况）</p>
