@@ -364,11 +364,7 @@
 <p>当用户运行到此代码时，便会运行XSS</p>
 <p>需要灵活根据网站的过滤情况进行判断</p>
 <h3 id="常见注入"><a href="#常见注入" class="headerlink" title="常见注入"></a>常见注入</h3><p>这里以alert(1)为例子：</p>
-<script>alert(1)</script>
-
 <p><a href="javascript:alert(1)">aaa</a></p>
-<img src="" onerror="alert(1)">
-
 <p>//<svg onload="javascript:alert(1)">onload表示只要完成加载就会触发的js函数</p>
 <h3 id="5-插入到HTTP响应中"><a href="#5-插入到HTTP响应中" class="headerlink" title="**5.插入到HTTP响应中"></a>**5.插入到HTTP响应中</h3><p><a target="_blank" rel="noopener" href="http://localhost/xss-labs/level11.php?keyword=good%20job">http://localhost/xss-labs/level11.php?keyword=good%20job</a>!</p>
 <p>请注意：本题需要从第10题进入否则无法得到注入点！</p>
