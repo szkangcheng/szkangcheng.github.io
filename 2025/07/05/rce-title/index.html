@@ -373,87 +373,24 @@
                     
 
 
-    <div class="comments-container border-box">
-        <div id="comments-anchor" class="comment-area-title border-box">
-            <i class="fas fa-comments"></i>&nbsp;评论
-        </div>
-        <div class="comment-plugin-fail border-box">
-    <span class="fail-tip">评论插件加载失败</span>
-    <button class="reload keep-button">点击重新加载</button>
-</div>
-<div class="comment-plugin-loading flex-center border-box">
-    <i class="loading-icon fa-solid fa-spinner fa-spin"></i>
-    <span class="load-tip">正在加载评论插件</span>
-</div>
-<script data-pjax>
-  window.KeepCommentPlugin = {}
-  window.KeepCommentPlugin.hideLoading = () => {
-    const cplDom = document.querySelector('.comments-container .comment-plugin-loading')
-    cplDom.style.display = 'none'
-  }
-  window.KeepCommentPlugin.loadFailHandle = () => {
-    window.KeepCommentPlugin.hideLoading()
-    const cpfDom = document.querySelector('.comments-container .comment-plugin-fail')
-    cpfDom.style.display = 'flex'
-    cpfDom.querySelector('.reload').addEventListener('click', () => {
-      window.location.reload()
-    })
-  }
-</script>
-
-        
-            
-
-    <div class="waline-comment-container">
-        <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@waline/client@v3.3.2/dist/waline.css"/>
-        <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@waline/client@v3.3.2/dist/waline-meta.css"/>
-        <div id="waline-comment"></div>
-        <script data-pjax>
-          window.KeepCommentPlugin.walineOptions = JSON.parse('{}'.replace(/&#34;/g, '"'))
-          window.KeepCommentPlugin.walineOptions.el = '#waline-comment'
-          window.KeepCommentPlugin.walineOptions.comment = '.post-comments-count'
-          window.KeepCommentPlugin.walineOptions.serverURL = 'https://szkangchengtest.vercel.app'
-          window.KeepCommentPlugin.walineOptions.lang = 'zh-CN' || 'zh-CN'
-          window.KeepCommentPlugin.walineOptions.reaction = 'false' === 'true'
-        </script>
-
-        
-
-        
-            <script 
-                    async
-                    type="module"
-            >
-              import { init } from '//cdn.jsdelivr.net/npm/@waline/client@v3.3.2/dist/waline.js'
-              window.KeepCommentPlugin.initWaline = () => {
-                if (init) {
-                  init(window.KeepCommentPlugin.walineOptions)
-                  window.KeepCommentPlugin.hideLoading()
-                } else {
-                  setTimeout(() => {
-                    window.KeepCommentPlugin.initWaline()
-                  }, 1000)
-                }
-              }
-
-              if ('false' === 'true') {
-                setTimeout(() => {
-                  window.KeepCommentPlugin.initWaline()
-                }, 1200)
-              } else {
-                window.addEventListener('DOMContentLoaded', window.KeepCommentPlugin.initWaline)
-              }
-            </script>
-        
+  <div class="comments-container border-box">
+    <div class="comments-anchor border-box comment-area-title border-box">
+      <i class="fas fa-comments"></i>&nbsp;评论
     </div>
-
-
-        
-    </div>
-
-
-
-
+    
+      <!-- 注入 Waline 前端代码 -->
+      <link href="https://unpkg.com/@waline/client@v3/dist/waline.css" rel="stylesheet" />
+      <div id="waline"></div>
+      <script src="https://unpkg.com/@waline/client@v3/dist/waline.js"></script>
+      <script>
+        Waline.init({
+          el: '#waline',
+          serverURL: 'https://szkangchengtest.vercel.app', 
+          path: window.location.pathname, 
+        });
+      </script>
+    
+  </div>
 
                 
             </div>
