@@ -1,271 +1,351 @@
 <!DOCTYPE html>
-<html data-theme="light">
-
+<html lang="zh-CN">
 <head>
-  <title>Szkc</title>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="
-      width=device-width, 
-      initial-scale=1.0, 
-      minimum-scale=1.0, 
-      maximum-scale=1.0,
-      user-scalable=no
-    " />
-  <link rel="icon" href="">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="Keep Team">
+    
+    <title>
+        
+            归档: 2025/7 |
+        
+        Keep Theme
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
 
-  
-<link rel="stylesheet" href="/css/main.css">
+    
+        <link rel="shortcut icon" href="/images/logo.svg">
+    
+    
+<link rel="stylesheet" href="/font/css/fontawesome.min.css">
 
+    
+<link rel="stylesheet" href="/font/css/regular.min.css">
 
-  
-<script src="/js/lib/jquery-3.6.3.min.js" defer></script>
+    
+<link rel="stylesheet" href="/font/css/solid.min.css">
 
-  
-  
-<script src="/js/lib/highlight.min.js" defer></script>
+    
+<link rel="stylesheet" href="/font/css/brands.min.css">
 
-  
-<script src="/js/main.js" type="module" defer></script>
-
-  
-<script src="/js/theme.js" type="module" defer></script>
-
-  
-<script src="/js/page/header.js" type="module" defer></script>
-
-  
-<script src="/js/page/side-menu.js" type="module" defer></script>
-
-  
-<script src="/js/page/search/index.js" defer></script>
-
-
-  
-  
-  
-
-  
-  
-<script src="/js/lib/busuanzi.pure.min.js" defer></script>
-
-  
-
-  
-  
-<script src="/js/page/search/local-search.js" type="module" defer></script>
-
-  
+    
+    <script class="keep-theme-configurations">
+    const KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN"}
+    KEEP.theme_config = {"base_info":{"primary_color":"#0066cc","title":"Keep Theme","author":"Keep Team","avatar":"/images/avatar.svg","logo":"/images/logo.svg","favicon":"/images/logo.svg"},"menu":{"home":"/","archives":"/archives"},"first_screen":{"enable":false,"background_img":"/images/bg.svg","background_img_dark":"/images/bg.svg","description":"Keep writing and Keep loving.","hitokoto":false},"social_contact":{"enable":false,"links":{"github":null,"weixin":null,"qq":null,"weibo":null,"zhihu":null,"twitter":null,"x":null,"facebook":null,"email":null}},"scroll":{"progress_bar":false,"percent":false,"hide_header":true},"home":{"announcement":null,"category":false,"tag":false,"post_datetime":"updated"},"post":{"author_badge":{"enable":true,"level_badge":true,"custom_badge":["One","Two","Three"]},"word_count":{"wordcount":false,"min2read":false},"datetime_format":"YYYY-MM-DD HH:mm:ss","copyright_info":false,"share":false,"reward":{"enable":false,"img_link":null,"text":null,"icon":null}},"code_block":{"tools":{"enable":false,"style":"default"},"highlight_theme":"default"},"toc":{"enable":false,"number":false,"expand_all":false,"init_open":true,"layout":"right"},"website_count":{"busuanzi_count":{"enable":false,"site_uv":false,"site_pv":false,"page_pv":false}},"local_search":{"enable":false,"preload":false},"comment":{"enable":false,"use":"valine","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":null,"github_admins":null,"repository":null,"client_id":null,"client_secret":null,"proxy":null},"twikoo":{"env_id":null,"region":null,"version":"1.6.39"},"waline":{"server_url":null,"reaction":false,"version":"3.3.2"},"giscus":{"repo":null,"repo_id":null,"category":"Announcements","category_id":null,"reactions_enabled":false},"artalk":{"server":null},"disqus":{"shortname":null}},"rss":{"enable":false},"lazyload":{"enable":false},"cdn":{"enable":false,"provider":"cdnjs"},"pjax":{"enable":false},"footer":{"since":2020,"word_count":false,"site_deploy":{"enable":false,"provider":"github","url":null},"record":{"enable":false,"list":[{"code":null,"link":null}]}},"inject":{"enable":false,"css":[null],"js":[null]},"root":"","source_data":{},"version":"4.2.5"}
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"}
+    KEEP.language_code_block = {"copy":"复制代码","copied":"已复制","fold":"折叠代码块","folded":"已折叠"}
+    KEEP.language_copy_copyright = {"copy":"复制版权信息","copied":"已复制","title":"原文标题","author":"原文作者","link":"原文链接"}
+  </script>
 <meta name="generator" content="Hexo 7.3.0"></head>
 
-<body style="position: relative;">
-  
-<div id="loading-box">
-  <div class="wave">
-    <div class="wave-child wave1"></div>
-    <div class="wave-child wave2"></div>
-    <div class="wave-child wave3"></div>
-    <div class="wave-child wave4"></div>
-    <div class="wave-child wave5"></div>
-  </div>
-</div>
 
-<script>
-  window.addEventListener("load", function() {
-    document.body.style.overflow = "auto";
-    document.getElementById("loading-box").classList.add("loaded")
-  }, false)
-</script>
-
-  <div class="bg-wrapper">
-  <canvas id="bg-canvas" />
-</div>
-  <div class="side-menu-container animate__animated animate__faster">
-  <ul class="menu animate__animated animate__faster">
-    <li class="menu-item"}><a href="/" title="首页">首页</a></li><li class="menu-item"}><a href="/projects" title="项目">项目</a></li><li class="menu-item"}><a href="/message" title="留言">留言</a></li><li class="menu-item"}><a href="/links" title="链接">链接</a></li><li class="menu-item"}><a href="/about" title="关于">关于</a></li>
-    <li class="category-menu-wrapper">
-      <div class="menu-item-name">
-        <span>分类</span>
-        <span class="iconfont icon-chevron-bottom"></span>
-      </div>
-      
-    </li>
-    <li class="iconfont icon-close-circle"></li>
-  </ul>
-</div>
-  
-<div class="search-pop-overlay">
-  <div class="popup search-popup">
+<body>
+<div class="progress-bar-container">
     
-    <div class="search-header">
-  <h2 class="search-title">
-    本地搜索
-    <i class="popup-btn-close iconfont icon-close"></i>
-  </h2>
-  <div class="search-input-container">
-    <input class="search-input" autocomplete="off" autocapitalize="off" maxlength="80" placeholder="请输入关键字" spellcheck="false" type="search">
-  </div>
-  <span class="popup-btn-close" role="button">
-    <i class="fa fa-times-circle"></i>
-  </span>
-</div>
-<div class="search-result-container no-result flex flex-column">
-  <div class="search-result-icon">
-    <i class="fa fa-spinner fa-pulse fa-5x"></i>
-  </div>
-</div>    
-  </div>
+
+    
 </div>
 
-  <header class="main-header animate__animated animate__fadeInDown">
-  <a class="blogger-info flex flex-align-center" href="/">
-    <img src="" alt="avatar">
-    <span>Szkc </span>
-  </a>
-  <nav>
-    <ul class="menu flex flex-align-center">
-      <li class="menu-item"}><a href="/" title="首页">首页</a></li><li class="menu-item"}><a href="/projects" title="项目">项目</a></li><li class="menu-item"}><a href="/message" title="留言">留言</a></li><li class="menu-item"}><a href="/links" title="链接">链接</a></li><li class="menu-item"}><a href="/about" title="关于">关于</a></li>
-      <li class="menu-category">
-        <div class="flex flex-align-center">
-          <span>分类</span>
-          <span class="iconfont icon-chevron-bottom"></span>
+
+
+<main class="page-container border-box">
+    <!-- home first screen  -->
+    
+
+    <!-- page content -->
+    <div class="page-main-content border-box">
+        <div class="page-main-content-top">
+            
+<header class="header-wrapper">
+
+    <div class="border-box header-content">
+        <div class="left flex-start border-box">
+            
+                <a class="logo-image border-box" href="/">
+                    <img src="/images/logo.svg">
+                </a>
+            
+            <a class="site-name border-box" href="/">
+               Keep Theme
+            </a>
         </div>
-        
-      </li>
-    </ul>
-  </nav>
-  <div class="right-icon flex flex-align-center">
-    <span class="search-popup-trigger iconfont icon-search"></span>
-    <span class="iconfont icon-view-list"></span>
-  </div>
+
+        <div class="right border-box">
+            <div class="pc border-box">
+                <ul class="menu-list border-box">
+                    
+                        
+                        <li class="menu-item flex-start border-box">
+                            <a class="menu-text-color border-box" href="/">
+                                
+                                首页
+                                
+                            </a>
+                            
+                        </li>
+                    
+                        
+                        <li class="menu-item flex-start border-box active">
+                            <a class="menu-text-color border-box" href="/archives">
+                                
+                                归档
+                                
+                            </a>
+                            
+                        </li>
+                    
+                    
+                </ul>
+            </div>
+            <div class="mobile border-box flex-start">
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list border-box">
+            
+                
+                <li class="drawer-menu-item border-box not-sub-menu">
+                    <label class="drawer-menu-label border-box">
+                        <a class="drawer-menu-text-color left-side flex-start border-box" href="/">
+                            
+                            首页
+                        </a>
+                        
+                    </label>
+                    
+                </li>
+            
+                
+                <li class="drawer-menu-item border-box not-sub-menu active">
+                    <label class="drawer-menu-label border-box">
+                        <a class="drawer-menu-text-color left-side flex-start border-box" href="/archives">
+                            
+                            归档
+                        </a>
+                        
+                    </label>
+                    
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
 </header>
-<div class="header-slot"></div>
-  <main class="page-container">
-    <div class="page-home-container">
-  
-  
-<div class="page-header animate__animated animate__fadeInDown">
-  <div class="page-name">
-    
-  </div>
-</div>
-  
-  
-  <div class="post-list-wrapper animate__animated animate__fadeInUp">
-    <ul class="post-list">
-      
-      <li class="post-card ">
-        <div class="post-cover-wrapper">
-          <a class="post-cover" style="background-image: url(/images/no-cover.png);" href="/2025/07/19/PHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">
-            <div class="overlay"></div>
-          </a>
-        </div>
-        <div class="post-info">
-          <div class="top-box">
-            
-            <div class="uncategoried">未分类</div>
-            
-            <a class="post-title" href="/2025/07/19/PHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">
-              PHP反序列化
-            </a>
-            <!-- <p class="post-desc">
-              PHP 
-serialize() 函数serialize() 函数用于序列化对象或数组，并返回一个字符串。
-serialize() ...
-            </p> -->
-          </div>
-          <div class="bottom-box">
-            <div class="post-publish-time">
-              <span>07/19, 2025 </span>
-              <!-- <span class="iconfont icon-eye"> 1230</span> -->
-            </div>
-          </div>
-      </li>
-      
-      <li class="post-card ">
-        <div class="post-cover-wrapper">
-          <a class="post-cover" style="background-image: url(/images/no-cover.png);" href="/2025/07/05/SQL/">
-            <div class="overlay"></div>
-          </a>
-        </div>
-        <div class="post-info">
-          <div class="top-box">
-            
-            <div class="uncategoried">未分类</div>
-            
-            <a class="post-title" href="/2025/07/05/SQL/">
-              SQL
-            </a>
-            <!-- <p class="post-desc">
-              SQL简介：SQL注入是一种常见的网络安全攻击手段，攻击者通过在输入字段中插入恶意的SQL代码，从而操纵后端数据库查询。如果应用程序未对用户输入进行适当的验证和过滤，攻击者可以利用SQL注入获取、修改或删除数据库中的敏感数据，甚至控制整个数据库服务器。
 
-            </p> -->
-          </div>
-          <div class="bottom-box">
-            <div class="post-publish-time">
-              <span>07/05, 2025 </span>
-              <!-- <span class="iconfont icon-eye"> 1230</span> -->
-            </div>
-          </div>
-      </li>
-      
-      <li class="post-card ">
-        <div class="post-cover-wrapper">
-          <a class="post-cover" style="background-image: url(/images/no-cover.png);" href="/2025/07/05/rce-title/">
-            <div class="overlay"></div>
-          </a>
+
         </div>
-        <div class="post-info">
-          <div class="top-box">
+
+        <div class="page-main-content-middle border-box">
+
+            <div class="main-content border-box">
+                
+
+                    <div class="fade-in-down-animation">
+    <div class="archives-container">
+        <div class="archives-timeline border-box">
             
-            <div class="uncategoried">未分类</div>
-            
-            <a class="post-title" href="/2025/07/05/rce-title/">
-              rce
-            </a>
-            <!-- <p class="post-desc">
-              参考：渗透测试——命令执行漏洞（RCE）详解 - 知乎
-常见rce函数1.利用系统函数实现命令执行的函数：
-            </p> -->
-          </div>
-          <div class="bottom-box">
-            <div class="post-publish-time">
-              <span>07/05, 2025 </span>
-              <!-- <span class="iconfont icon-eye"> 1230</span> -->
+<div class="archive-list-container border-box">
+    
+        <section class="archive-item border-box">
+            <div class="archive-item-header border-box">
+                <span class="archive-year">2025</span>
             </div>
-          </div>
-      </li>
-      
-    </ul>
-      
-  </div>
+            <ul class="archive-item-body border-box">
+                
+                    <li class="post-item border-box">
+                        <span class="starting-point border-box flex-center"></span>
+                        <span class="post-date border-box">07-19</span>
+                        <a class="post-title border-box text-ellipsis"
+                           href="/2025/07/19/PHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/"
+                        >PHP反序列化</a>
+                    </li>
+                
+                    <li class="post-item border-box">
+                        <span class="starting-point border-box flex-center"></span>
+                        <span class="post-date border-box">07-05</span>
+                        <a class="post-title border-box text-ellipsis"
+                           href="/2025/07/05/SQL/"
+                        >SQL</a>
+                    </li>
+                
+                    <li class="post-item border-box">
+                        <span class="starting-point border-box flex-center"></span>
+                        <span class="post-date border-box">07-05</span>
+                        <a class="post-title border-box text-ellipsis"
+                           href="/2025/07/05/rce-title/"
+                        >rce</a>
+                    </li>
+                
+            </ul>
+        </section>
+    
+</div>
+
+        </div>
+    </div>
+    
+
+
+
 </div>
 
 
-<script src="/js/plugin/velocity.js" defer></script>
+                
+            </div>
+        </div>
 
-
-<script src="/js/plugin/shutter.js" defer></script>
-
-
-<script src="/js/page/home.js" defer></script>
-
-    <div id="theme-btn" class="iconfont"></div>
-  </main>
-  <footer class="page-footer animate__animated animate__fadeIn">
-  
-  <p class="footer__desc">
+        <div class="page-main-content-bottom border-box">
+            
+<footer class="footer border-box">
+    <div class="copyright-info info-item">
+    &copy;&nbsp;<span>2020</span>&nbsp;-&nbsp;2025
     
-  </p>
-  <p class="copyright">Copyright © 2025-2025 szkangcheng </span>
-  <p>Powered by <a href="https://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> & <a href="https://github.com/FE-Alog/hexo-theme-alog" title="Hexo-theme-alog" target="_blank" rel="noopener">Hexo-theme-alog</a> </p>
-  
+            &nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;&nbsp;<a href="/">Keep Team</a>
+        
+    </div>
+
+    <div class="theme-info info-item">
+        由&nbsp;<a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;驱动&nbsp;&&nbsp;主题&nbsp;<a class="keep-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep</a>
+    </div>
+
+    
+
+    
+
+    
 </footer>
+
+        </div>
+    </div>
+
+    <!-- post tools -->
+    
+
+    <!-- side tools -->
+    <div class="side-tools">
+        <div class="side-tools-container border-box ">
+    <ul class="side-tools-list side-tools-show-handle border-box">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <!-- toggle mode -->
+        
+            <li class="tools-item tool-toggle-theme-mode flex-center">
+                <i class="fas fa-moon"></i>
+            </li>
+        
+
+        <!-- rss -->
+        
+
+        <!-- to bottom -->
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list border-box">
+        
+
+        
+
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+
+        <li class="tools-item tool-scroll-to-top flex-center show-arrow">
+            <i class="arrow fas fa-arrow-up"></i>
+            <span class="percent"></span>
+        </li>
+    </ul>
+</div>
+
+    </div>
+
+    <!-- image mask -->
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
+</div>
+
+
+    <!-- local search -->
+    
+
+    <!-- tablet toc -->
+    
+</main>
+
+
+
+
+
+
+<!-- common js -->
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/toggle-theme.js"></script>
+
+<script src="/js/code-block.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+
+<!-- local search -->
+
+
+<!-- lazyload -->
+
+
+<div class="">
+    <!-- home page -->
+    
+
+    <!-- post page -->
+    
+
+    <!-- categories page -->
+    
+
+    <!-- links page -->
+    
+
+    <!-- photos page -->
+    
+
+    <!-- tools page -->
+    
+</div>
+
+<!-- mermaid -->
+
+
+<!-- pjax -->
+
+
+
 </body>
-
-
-    <script>
-      window.CONFIG = {"search":{},"i18n":{"search":{"title":"本地搜索","result_title":"${resultNum} 条结果","placeholder":"请输入关键字","no_result":"搜索不到呢~","tips":"搜索"}}};
-    </script>
-  
-
 </html>

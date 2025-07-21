@@ -1,18 +1,82 @@
-import BgAnimation from './page/bg-animation.js';
-import CodeBlock from './page/codeblock.js';
-import ThemeController from './theme.js';
+/* global KEEP */
 
-$(function () {
-  new ThemeController();
-  new BgAnimation();
-  new CodeBlock();
-  // let pjax = new Pjax({
-  //   elements: "a",
-  //   selectors: [".page-container"],//填写要改变的部分，标签直接写标签名，id选择器需要加#，类名需要加.
-  //   history: true, //是否添加近浏览器历史记录
-  //   pushState: true,//是否启用 pushState。禁用后 Pjax 就变成了 Ajax。
-  //   scrollRestoration: false,//切换页面后，Pjax 将尝试恢复滚动位置。
-  //   cacheBust: false, //是否在 URL 上添加时间戳，防止浏览器缓存。
-  //   debug: false
-  // });
-});
+window.addEventListener('DOMContentLoaded', () => {
+  const { version, local_search, lazyload } = KEEP.theme_config
+
+  KEEP.themeInfo = {
+    theme: `Keep v${version}`,
+    author: 'XPoet',
+    repository: 'https://github.com/XPoet/hexo-theme-keep',
+    localStorageKey: 'KEEP-THEME-STATUS',
+    encryptKey: 'KEEP-ENCRYPT',
+    styleStatus: {
+      isDark: false,
+      fontSizeLevel: 0,
+      isShowToc: true
+    },
+    defaultDatetimeFormat: 'YYYY-MM-DD HH:mm:ss'
+  }
+
+  // print theme base info
+  KEEP.printThemeInfo = () => {
+    console.log(
+      `\n %c ${KEEP.themeInfo.theme} %c ${KEEP.themeInfo.repository} \n`,
+      `color: #fadfa3; background: #333; padding: 6px 0;`,
+      `padding: 6px 0;`
+    )
+  }
+  KEEP.printThemeInfo()
+
+  // set version number of footer
+  KEEP.setFooterVersion = () => {
+    const vd = document.querySelector('.footer .keep-version')
+    vd && (vd.innerHTML = KEEP.themeInfo.theme)
+  }
+
+  // set styleStatus to localStorage
+  KEEP.setStyleStatus = () => {
+    localStorage.setItem(KEEP.themeInfo.localStorageKey, JSON.stringify(KEEP.themeInfo.styleStatus))
+  }
+
+  // get styleStatus from localStorage
+  KEEP.getStyleStatus = () => {
+    let temp = localStorage.getItem(KEEP.themeInfo.localStorageKey)
+    if (temp) {
+      temp = JSON.parse(temp)
+      for (let key in KEEP.themeInfo.styleStatus) {
+        KEEP.themeInfo.styleStatus[key] = temp[key]
+      }
+      return temp
+    } else {
+      return null
+    }
+  }
+
+  // init prototype function
+  KEEP.initPrototype = () => {
+    HTMLElement.prototype.wrap = function (wrapper) {
+      this.parentNode.insertBefore(wrapper, this)
+      this.parentNode.removeChild(this)
+      wrapper.appendChild(this)
+    }
+  }
+  KEEP.initPrototype()
+
+  KEEP.initExecute = () => {
+    KEEP.initUtils()
+    KEEP.initHeaderShrink()
+    KEEP.initModeToggle()
+    KEEP.initBack2Top()
+    KEEP.initCodeBlock()
+    KEEP.setFooterVersion()
+
+    if (lazyload?.enable === true) {
+      KEEP.initLazyLoad()
+    }
+
+    if (local_search?.enable === true) {
+      KEEP.initLocalSearch()
+    }
+  }
+  KEEP.initExecute()
+})
