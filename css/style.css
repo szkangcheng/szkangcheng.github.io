@@ -2501,63 +2501,65 @@ figure.highlight .shrink-line:hover::before {
   padding-left: 1rem;
   display: none;
 }
-.waline-comment-container #waline-comment {
-  --waline-theme-color: var(--primary-color);
-  --waline-active-color: var(--primary-color-light-1);
-  --waline-color: var(--text-color-3);
-  --waline-bgcolor: var(--background-color-1);
-  --waline-bg-color: var(--background-color-1);
-  --waline-border-color: var(--border-color);
-  --waline-disable-bgcolor: var(--background-color-2);
-  --waline-disable-bg-color: var(--background-color-2);
-  --waline-disable-color: var(--text-color-3);
-  --waline-code-bgcolor: rgba(40,44,52,0.9);
-  --waline-code-bg-color: rgba(40,44,52,0.9);
-  --waline-info-bgcolor: var(--background-color-3);
-  --waline-info-bg-color: var(--background-color-3);
-  --waline-info-color: var(--text-color-3);
-  --waline-border: 1px solid var(--waline-border-color);
-  --waline-dark-grey: var(--text-color-3);
-  --waline-light-grey: var(--text-color-4);
-}
-.waline-comment-container #waline-comment input,
-.waline-comment-container #waline-comment textarea {
-  position: relative;
-  box-sizing: border-box;
-  padding: 0.6rem 1rem;
+.twikoo-container #twikoo .tk-meta-input .el-input .el-input-group__prepend {
   color: var(--text-color-3);
-  background: transparent;
-  border-radius: 0.4rem;
-  outline: none;
 }
-.waline-comment-container #waline-comment input:hover,
-.waline-comment-container #waline-comment textarea:hover {
+.twikoo-container #twikoo .tk-meta-input .el-input input {
+  color: var(--text-color-3);
+}
+.twikoo-container #twikoo .tk-input textarea {
+  color: var(--text-color-3);
+}
+.twikoo-container #twikoo .actions .tk-row-actions-start .tk-submit-action-icon svg path {
+  fill: var(--text-color-3);
+  transition-delay: 0s, 0s, 0s, 0s, 0s;
+  transition-timing-function: ease, ease, ease, ease, ease;
+  transition-duration: 0.2s, 0.2s, 0.2s, 0.2s, 0.2s;
+  transition-property: color, background, box-shadow, border-color, fill;
+}
+.twikoo-container #twikoo .actions .tk-row-actions-start .tk-submit-action-icon .OwO-body {
+  color: var(--text-color-3);
+  background-color: var(--background-color-1);
+}
+.twikoo-container #twikoo .actions .tk-preview span {
+  color: var(--text-color-3);
   background: var(--background-color-2);
 }
-.waline-comment-container #waline-comment .wl-header {
-  box-sizing: border-box;
-  padding: 0;
+.twikoo-container #twikoo .tk-preview-container {
+  color: var(--text-color-3);
 }
-.waline-comment-container #waline-comment button {
-  transition-delay: 0s, 0s, 0s, 0s, 0s, 0s;
-  transition-timing-function: ease, ease, ease, ease, ease, ease;
-  transition-duration: 0.2s, 0.2s, 0.2s, 0.2s, 0.2s, 0.2s;
-  transition-property: color, background, box-shadow, border-color, color, background;
+.twikoo-container #twikoo .tk-comments-container .tk-comments-count span {
+  color: var(--text-color-3);
 }
-.waline-comment-container #waline-comment .wl-logout-btn svg {
-  width: 1rem;
-  height: 1rem;
+.twikoo-container #twikoo .tk-main {
+  margin-bottom: 1.4rem;
 }
-.waline-comment-container #waline-comment .wl-logout-btn svg path {
-  color: var(--background-color-3);
+.twikoo-container #twikoo .tk-main .tk-meta .tk-nick {
+  color: var(--text-color-3);
 }
-.waline-comment-container #waline-comment .wl-panel {
+.twikoo-container #twikoo .tk-main .tk-meta strong {
+  color: var(--text-color-3);
+}
+.twikoo-container #twikoo .tk-main .tk-meta .tk-tag.tk-tag-green {
+  color: #fff;
+  background: -webkit-linear-gradient(45deg, #e3565e, #ee854b, #f6c258, #90c68a, #5fb3b3, #69c, #c594c5);
+  background: linear-gradient(45deg, #e3565e, #ee854b, #f6c258, #90c68a, #5fb3b3, #69c, #c594c5);
+  border: none;
   border-radius: 0.4rem;
 }
-.waline-comment-container #waline-comment .wl-count,
-.waline-comment-container #waline-comment .wl-num,
-.waline-comment-container #waline-comment .wl-preview h4,
-.waline-comment-container #waline-comment .wl-like span {
+.twikoo-container #twikoo .tk-main .tk-meta .tk-time time {
+  color: var(--text-color-4);
+}
+.twikoo-container #twikoo .tk-main .tk-content {
+  color: var(--text-color-3);
+}
+.twikoo-container #twikoo .tk-main .tk-content span {
+  color: var(--text-color-3);
+}
+.twikoo-container #twikoo .tk-main .tk-content p {
+  color: var(--text-color-3);
+}
+.twikoo-container #twikoo .tk-main .tk-expand {
   color: var(--text-color-4);
 }
 .comments-container {
