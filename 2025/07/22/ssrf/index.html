@@ -9,7 +9,7 @@
     
     <title>
         
-            归档 |
+            ssrf |
         
         Keep Theme
     </title>
@@ -89,7 +89,7 @@
                         </li>
                     
                         
-                        <li class="menu-item flex-start border-box active">
+                        <li class="menu-item flex-start border-box">
                             <a class="menu-text-color border-box" href="/archives">
                                 
                                 归档
@@ -126,7 +126,7 @@
                 </li>
             
                 
-                <li class="drawer-menu-item border-box not-sub-menu active">
+                <li class="drawer-menu-item border-box not-sub-menu">
                     <label class="drawer-menu-label border-box">
                         <a class="drawer-menu-text-color left-side flex-start border-box" href="/archives">
                             
@@ -152,69 +152,202 @@
             <div class="main-content border-box">
                 
 
-                    <div class="fade-in-down-animation">
-    <div class="archives-container">
-        <div class="archives-timeline border-box">
+                    
+<div class="fade-in-down-animation">
+    <div class="post-page-container border-box">
+        <div class="post-content-container border-box">
             
-<div class="archive-list-container border-box">
-    
-        <section class="archive-item border-box">
-            <div class="archive-item-header border-box">
-                <span class="archive-year">2025</span>
-            </div>
-            <ul class="archive-item-body border-box">
+
+            <div class="post-content-bottom border-box">
                 
-                    <li class="post-item border-box">
-                        <span class="starting-point border-box flex-center"></span>
-                        <span class="post-date border-box">07-22</span>
-                        <a class="post-title border-box text-ellipsis"
-                           href="/2025/07/22/ssrf/"
-                        >ssrf</a>
-                    </li>
+                    <div class="post-title">
+                        ssrf
+                    </div>
                 
-                    <li class="post-item border-box">
-                        <span class="starting-point border-box flex-center"></span>
-                        <span class="post-date border-box">07-21</span>
-                        <a class="post-title border-box text-ellipsis"
-                           href="/2025/07/21/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/"
-                        >文件包含</a>
-                    </li>
+
                 
-                    <li class="post-item border-box">
-                        <span class="starting-point border-box flex-center"></span>
-                        <span class="post-date border-box">07-19</span>
-                        <a class="post-title border-box text-ellipsis"
-                           href="/2025/07/19/PHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/"
-                        >PHP反序列化</a>
-                    </li>
-                
-                    <li class="post-item border-box">
-                        <span class="starting-point border-box flex-center"></span>
-                        <span class="post-date border-box">07-05</span>
-                        <a class="post-title border-box text-ellipsis"
-                           href="/2025/07/05/SQL/"
-                        >SQL</a>
-                    </li>
-                
-                    <li class="post-item border-box">
-                        <span class="starting-point border-box flex-center"></span>
-                        <span class="post-date border-box">07-05</span>
-                        <a class="post-title border-box text-ellipsis"
-                           href="/2025/07/05/rce-title/"
-                        >rce</a>
-                    </li>
-                
-            </ul>
-        </section>
+                    <div class="post-header border-box">
+                        
+                            <div class="avatar-box border-box">
+                                <img src="/images/avatar.svg">
+                            </div>
+                        
+                        <div class="info-box">
+                            <div class="author border-box">
+                                <span class="name">Keep Team</span>
+                                
+                                    <span class="author-badge">Lv1</span>
+                                
+                            </div>
+                            <div class="meta-info border-box">
+                                
+
+<div class="post-meta-info-container border-box post">
+    <div class="post-meta-info border-box">
+        
+
+        
+            <span class="meta-info-item post-create-date">
+                <i class="icon fa-solid fa-calendar-plus"></i>&nbsp;
+                <span class="datetime">2025-07-22 10:11:42</span>
+            </span>
+
+            
+                <span class="meta-info-item post-update-date">
+                    <i class="icon fa-solid fa-file-pen"></i>&nbsp;
+                    <span class="datetime" data-updated="Tue Jul 22 2025 10:12:10 GMT+0800">2025-07-22 10:12:10</span>
+                </span>
+            
+        
+
+        
+
+        
+
+        
+        
+        
+        
+    </div>
+
     
 </div>
 
-        </div>
+                            </div>
+                        </div>
+                    </div>
+                
+
+                <div class="post-content keep-markdown-body ">
+                    
+
+                    
+                         <p>什么是SSRF漏洞？以及相关SSRF知识：<a class="link"   target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/2103240" >https://cloud.tencent.com/developer/article/2103240<i class="fas fa-external-link-alt"></i></a></p>
+<h2 id="gopher协议"><a href="#gopher协议" class="headerlink" title="gopher协议"></a>gopher协议</h2><p>Gopher是Internet上一个非常有名的信息查找系统，它将Internet上的文件组织成某种索引，很方便地将用户从Internet的一处带到另一处。在WWW出现之前，Gopher是Internet上最主要的<a class="link"   target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=%E4%BF%A1%E6%81%AF%E6%A3%80%E7%B4%A2&spm=1001.2101.3001.7020" >信息检索<i class="fas fa-external-link-alt"></i></a>工具，Gopher站点也是最主要的站点，使用tcp70端口。但在WWW出现后，Gopher失去了昔日的辉煌。现在它基本过时，人们很少再使用它；</p>
+<h3 id="发送get请求"><a href="#发送get请求" class="headerlink" title="发送get请求"></a>发送get请求</h3><p>直接发送一个get请求包，然后根据需要转变为gopher形式</p>
+<p>举例：</p>
+<p>GET &#x2F;ssrf&#x2F;base&#x2F;get.php?name&#x3D;114514 HTTP&#x2F;1.1<br>Host: 192.168.0.109</p>
+<p>经过<strong>多次</strong>URL编码后变为：（服务器自身会解码）</p>
+<p>GET%20%2Fssrf%2Fbase%2Fget.php%3Fname%3D114514%20HTTP%2F1.1%0AHost%3A%20192.168.0.109</p>
+<p>改写为：</p>
+<p>curl gopher:&#x2F;&#x2F;192.168.0.109:80&#x2F;_GET%20%2Fssrf%2Fbase%2Fget.php%3Fname%3D114514%20HTTP%2F1.1%0AHost%3A%20192.168.0.109%0d%0A</p>
+<p>请注意：</p>
+<ol>
+<li>问号（？）需要转码为URL编码，也就是%3f</li>
+<li>回车换行要变为%0d%0a,但如果直接用工具转，可能只会有%0a</li>
+<li>在HTTP包的最后要加%0d%0a，代表消息结束（具体可研究HTTP包结束）</li>
+</ol>
+<p><strong>在这里curl用于在cmd执行gopher，在powershell改为Invoke-WebRequest。</strong></p>
+<h3 id="发送post请求"><a href="#发送post请求" class="headerlink" title="发送post请求"></a>发送post请求</h3><p>注意这四个字段必不可少！</p>
+<p>POST &#x2F;ssrf&#x2F;base&#x2F;post.php HTTP&#x2F;1.1</p>
+<p>Host: 192.168.0.109</p>
+<p>Content-Type: application&#x2F;x-www-form-urlencoded</p>
+<p>Content-Length: 11</p>
+<p> name&#x3D;114514</p>
+<p>转变为</p>
+<p>curl</p>
+<p>gopher:&#x2F;&#x2F;192.168.0.109:80&#x2F;_POST%20%2Fssrf%2Fbase%2Fpost.php%20HTTP%2F1.1%0D%0AHost%3A%20192.168.0.109%0D%0AContent-Type%3A%20application%2Fx-www-form-urlencoded%0D%0AContent-Length%3A%2011%0D%0A%0D%0Aname%3D114514%0D%0A</p>
+<p>随后在命令行进行执行即可</p>
+<p>如果要跟踪302跳转，只需curl -L即可</p>
+
+                    
+                </div>
+
+                
+
+                <div class="post-bottom-tags-and-share border-box">
+                    <div>
+                        
+                    </div>
+                    <div>
+                        
+                    </div>
+                </div>
+
+                
+
+                
+                    <div class="post-nav border-box">
+                        
+                        
+                            <div class="next-post">
+                                <a class="next"
+                                   rel="next"
+                                   href="/2025/07/21/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/"
+                                   title="文件包含"
+                                >
+                                    <span class="title flex-center">
+                                        <span class="post-nav-title-item text-ellipsis">文件包含</span>
+                                        <span class="post-nav-item">下一篇</span>
+                                    </span>
+                                    <span class="right arrow-icon flex-center">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </span>
+                                </a>
+                            </div>
+                        
+                    </div>
+                
+
+                
+                    
+
+
+  <div class="comments-container border-box">
+    <div class="comments-anchor border-box comment-area-title border-box">
+      <i class="fas fa-comments"></i>&nbsp;评论
     </div>
     
+      
+
+    &lt;div class=&#34;twikoo-container&#34;&gt;
+        &lt;div id=&#34;twikoo-comment&#34;&gt;&lt;/div&gt;
+        &lt;script 
+                src=&#34;//cdn.jsdelivr.net/npm/twikoo@1.6.39/dist/twikoo.all.min.js&#34;
+                async
+                onerror=&#34;window.KeepCommentPlugin.loadFailHandle()&#34;
+        &gt;&lt;/script&gt;
+        &lt;script 
+                async
+                onerror=&#34;window.KeepCommentPlugin.loadFailHandle()&#34;
+        &gt;
+          window.KeepCommentPlugin.initTwikoo = () =&gt; {
+            if (window?.twikoo) {
+              twikoo.init({
+                el: &#39;#twikoo-comment&#39;,
+                envId: &#39;https://szkangchengtest.vercel.app/api/twikoo&#39;,
+                region: &#39; &#39;,
+                lang: &#39;zh-CN&#39; || &#39;zh-CN&#39;
+              })
+              window.KeepCommentPlugin.hideLoading()
+            } else {
+              setTimeout(() =&gt; {
+                window.KeepCommentPlugin.initTwikoo()
+              }, 1000)
+            }
+          }
+
+          if (&#39;false&#39; === &#39;true&#39;) {
+            setTimeout(() =&gt; {
+              window.KeepCommentPlugin.initTwikoo()
+            }, 1200)
+          } else {
+            window.addEventListener(&#39;DOMContentLoaded&#39;, window.KeepCommentPlugin.initTwikoo)
+          }
+        &lt;/script&gt;
+    &lt;/div&gt;
 
 
+    
+  </div>
 
+
+                
+            </div>
+        </div>
+
+        
+    </div>
 </div>
 
 
@@ -247,6 +380,32 @@
     </div>
 
     <!-- post tools -->
+    
+        <div class="post-tools right-toc">
+            <div class="post-tools-container border-box">
+    <ul class="post-tools-list border-box">
+        <!-- PC encrypt again -->
+        
+
+        <!-- PC TOC show toggle -->
+        
+
+        <!-- PC go comment -->
+        
+            <li class="tools-item flex-center go-to-comments">
+                <i class="fas fa-comment"></i>
+                <span class="post-comments-count"></span>
+            </li>
+        
+
+        <!-- PC full screen -->
+        <li class="tools-item flex-center full-screen">
+            <i class="fa-solid fa-expand"></i>
+        </li>
+    </ul>
+</div>
+
+        </div>
     
 
     <!-- side tools -->
@@ -281,6 +440,10 @@
         
 
         
+            <li class="tools-item go-to-comments-tablet flex-center">
+                <i class="fas fa-comment"></i>
+            </li>
+        
 
         <li class="tools-item tool-toggle-show flex-center">
             <i class="fas fa-cog fa-spin"></i>
@@ -307,7 +470,6 @@
     <!-- tablet toc -->
     
 </main>
-
 
 
 
@@ -341,6 +503,20 @@
     
 
     <!-- post page -->
+    
+        <!-- post-helper -->
+        
+<script src="/js/post/post-helper.js"></script>
+
+
+        <!-- toc -->
+        
+
+        <!-- copyright-info -->
+        
+
+        <!-- share -->
+        
     
 
     <!-- categories page -->
