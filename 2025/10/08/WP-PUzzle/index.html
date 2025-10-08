@@ -9,8 +9,6 @@
     
     <title>
         
-            RCE |
-        
         SZKC&#39;s Blog
     </title>
     
@@ -182,7 +180,7 @@
             <div class="post-content-bottom border-box">
                 
                     <div class="post-title">
-                        RCE
+                        
                     </div>
                 
 
@@ -210,13 +208,13 @@
         
             <span class="meta-info-item post-create-date">
                 <i class="icon fa-solid fa-calendar-plus"></i>&nbsp;
-                <span class="datetime">2025-08-09 16:44:13</span>
+                <span class="datetime">2025-10-08 17:43:38</span>
             </span>
 
             
                 <span class="meta-info-item post-update-date">
                     <i class="icon fa-solid fa-file-pen"></i>&nbsp;
-                    <span class="datetime" data-updated="Sat Aug 09 2025 16:44:23 GMT+0800">2025-08-09 16:44:23</span>
+                    <span class="datetime" data-updated="Wed Oct 08 2025 17:51:07 GMT+0800">2025-10-08 17:51:07</span>
                 </span>
             
         
@@ -243,35 +241,47 @@
                     
 
                     
-                         <p>参考：<a class="link"   target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/649597680" >渗透测试——命令执行漏洞（RCE）详解 - 知乎<i class="fas fa-external-link-alt"></i></a></p>
-<h1 id="常见rce函数"><a href="#常见rce函数" class="headerlink" title="常见rce函数"></a>常见rce函数</h1><p>1.利用系统函数实现命令执行的函数：</p>
-<p>eval（）、assert（）、preg_replace（）、call_user_func（） 、如果页面中存在这些函数并且对于用户的输入没有做严格的过滤，那么就可能造成远程命令执行漏 洞 其他函数</p>
-<p>ob_start（）、unserialize（）、creat_function（） 、usort（）、uasort（）、uksort（）、  array_filter（）、 array_reduce（）、 array_map（）</p>
-<p>2.直接执行系统命令的代码函数</p>
-<p>system（），exec（），shell_exec（），passthru（）， pcntl_exec（）， popen（），  proc_open（），反引号</p>
-<h1 id="常见rce方法"><a href="#常见rce方法" class="headerlink" title="常见rce方法"></a>常见rce方法</h1><h2 id="php解析漏洞"><a href="#php解析漏洞" class="headerlink" title="php解析漏洞"></a>php解析漏洞</h2><p>如果服务器错误地解析 <code>.php.jpg</code> 这样的文件，攻击者可以上传伪装的恶意 PHP 代码并执行。</p>
-<h2 id="目录遍历漏洞"><a href="#目录遍历漏洞" class="headerlink" title="目录遍历漏洞"></a>目录遍历漏洞</h2><p>如果服务器没有正确配置，攻击者可能通过 URL 访问 <code>/etc/passwd</code> 或其他敏感文件：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://example.com/?file=../../../../etc/passwd</span><br></pre></td></tr></table></figure>
-
-<p><strong>rce：</strong> 如果 <code>include()</code> 或 <code>require()</code> 处理用户输入，攻击者可以执行任意 PHP 代码：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://example.com/include.php?file=../../../../var/www/html/shell.php</span><br></pre></td></tr></table></figure>
-
-<p> <strong>Webshell 上传</strong> 如果配合 <strong>文件上传漏洞</strong>，攻击者可以：</p>
-<ol>
-<li>上传 <strong><code>shell.php.txt</code></strong></li>
-<li>通过路径遍历漏洞访问 <code>/uploads/shell.php.txt</code></li>
-<li>服务器误解析 <code>.txt</code> 为 PHP，导致代码执行</li>
-</ol>
-<h2 id="命令联合执行"><a href="#命令联合执行" class="headerlink" title="命令联合执行"></a>命令联合执行</h2><p>连接符号 连接词	<br>;	前面的命令执行完以后，继续执行后面的命令<br>|	管道符，将上一条命令的输出作为下一条命令的参数（显示后面的执行结果）<br>||	当前面的命令执行出错时（为假）执行后面的命令<br>&amp;	将任务置于后台执行<br>&amp;&amp;	前面的语句为假则直接出错，后面的也不执行，前面只能为真</p>
-<h1 id="rce绕过"><a href="#rce绕过" class="headerlink" title="rce绕过"></a>rce绕过</h1><h3 id="空格绕过"><a href="#空格绕过" class="headerlink" title="空格绕过"></a>空格绕过</h3><p>${IFS}$9<br>{IFS}<br>$IFS<br>${IFS}<br>$IFS$1 &#x2F;&#x2F;$1改成$加其他数字貌似都行<br>IFS<br>&lt;<br>&lt;&gt;<br>{cat,flag.php}  &#x2F;&#x2F;用逗号实现了空格功能，需要用{}括起来<br>%20   (space)<br>%09   (tab)<br>X&#x3D;$’cat\x09.&#x2F;flag.php’;$X       （\x09表示tab，也可以用\x20）</p>
-<h3 id="cat禁用"><a href="#cat禁用" class="headerlink" title="cat禁用"></a>cat禁用</h3><p>有时会禁用cat: 解决方法是使用tac反向输出命令： linux命令中可以加\，所以甚至可以ca\t &#x2F;fl\ag</p>
-<h3 id="内联执行"><a href="#内联执行" class="headerlink" title="内联执行"></a>内联执行</h3><p>在引号写入命令，引号中的命令执行之后的结果会再在反引号之外执行执行（反引号）</p>
-<p>cat <code>ls</code> &#x2F;&#x2F;（显示问题，ls外侧有反引号！！！）cat “ls”所查出来的文件</p>
-<p>cat <code>echo &#39;ZmxhZy5waHA=&#39; | base64 -d</code>&#x2F;&#x2F;先echo这个base64字符串，在用管道符解码这个echo出来的base64（flag.php）然后再 cat解码出来的内容就变成了cat flag.php</p>
-<h3 id="变量拼接"><a href="#变量拼接" class="headerlink" title="变量拼接"></a>变量拼接</h3><p>针对于服务端的贪婪匹配</p>
-<p>if(preg_match(“&#x2F;.*f.*l.*a.<em>g.</em>&#x2F;“, $ip)){    die(“fxck your flag!”);&#x2F;&#x2F;（参数中是否存在固定顺序的f-l-a-g序列）</p>
-<p>可以a&#x3D;g;cat fla$a.php</p>
-<p>达到绕过效果</p>
+                         <p>WP-Securinets CTF Puzzle(2025-10)<br> 好，打开界面，可以看到是一个关于发表文章，阅读文章的网站。<br> 有各种功能但是大都没什么用，比较吸引人注意的就是这个登录&#x2F;注册的功能。<br> 根据下载的附件，我们可以得到这道题拥有管理员，编辑和普通用户三种身份（通过role字段进行判断）<br> 并且常规注册使用用户身份进行注册<br> 同时可以得到：不得注册管理员身份（role&#x3D;0会报错）<br><img   src="C:\Users\kzj\AppData\Roaming\Typora\typora-user-images\image-20251008174553198.png"  alt="image-20251008174553198"></p>
+<p>但是可以看出，并没有对编辑身份进行限制，所以我们通过抓包注册一个编辑身份（手动添加role&#x3D;1的字段）</p>
+<p><img   src="C:\Users\kzj\AppData\Roaming\Typora\typora-user-images\image-20251008174641639.png"  alt="image-20251008174641639"></p>
+<p>注册完身份后，跳转到已登录状态，可以看到比较引人注目的就是发布文章和邀请协作者这个操作了。<br> 由于在route.py中有很多只有admin才有的特殊操作，所以我把目光放在了获取admin的身份上。<br> （在app.py中可以看到默认密码是somepass，所以如果我们自己开一个容器的话是可以直接进到admin的，但是很不幸这个是在线环境，所以得找到方法得到admin的密码。）<br> 顺便一提，本题中基本都使用了参数化注入，SQLI不太可能了，所以专心搞admin密码<br> 在route.py中有这样一个路由：</p>
+<p><img   src="C:\Users\kzj\AppData\Roaming\Typora\typora-user-images\image-20251008174701526.png"  alt="image-20251008174701526"></p>
+<p>对于编辑或者管理员，只要使用users&#x2F;uuid，就可以get到某个用户的密码（先拿自己做一个实验）</p>
+<p><img   src="C:\Users\kzj\AppData\Roaming\Typora\typora-user-images\image-20251008174723886.png"  alt="image-20251008174723886"></p>
+<p>所以现在的目标变成了如何获取到管理员的uuid。</p>
+<p>这个是时候发现了这个路由：</p>
+<p><img   src="C:\Users\kzj\AppData\Roaming\Typora\typora-user-images\image-20251008174737502.png"  alt="image-20251008174737502"></p>
+<p>功能是公开列出服务器上 DB_DIR 目录下的所有文件<br> 试一试：<br> 果不其然发现新的附件：<br> old.db<br> 下一个看看是数据库文件，我们找到admin的数据：</p>
+<p><img   src="C:\Users\kzj\AppData\Roaming\Typora\typora-user-images\image-20251008174752456.png"  alt="image-20251008174752456"></p>
+<p><img   src="C:\Users\kzj\AppData\Roaming\Typora\typora-user-images\image-20251008174759461.png"  alt="image-20251008174759461"></p>
+<p>但是实操后发现</p>
+<p> 这玩意儿是个假的……<br> 我真服了，还得继续找。</p>
+<p>这个时候我发现</p>
+<p><img   src="C:\Users\kzj\AppData\Roaming\Typora\typora-user-images\image-20251008174819664.png"  alt="image-20251008174819664"></p>
+<p>如果能查到某一篇文章的uuid，那么我们就可以查询到作者和协助者的uuid<br> 所以很自然地希望admin成为我们的协作者。先发一篇文章。</p>
+<p><img   src="C:\Users\kzj\AppData\Roaming\Typora\typora-user-images\image-20251008174831260.png"  alt="image-20251008174831260"></p>
+<p> 很不幸，管理员没有接受，而没有被接受的文章并不会被添加到article表里面，也就没有办法得到uuid（根本没有被发上去？？？？？）<br> 诶，这个时候我看到</p>
+<p><img   src="C:\Users\kzj\AppData\Roaming\Typora\typora-user-images\image-20251008174929540.png"  alt="image-20251008174929540"></p>
+<p>如果得知某个协作请求的uuid，那其实是可以“帮助管理员”通过协作申请的，而源代码中也展示了协作请求的uuid<br> 所以这个时候我们进行操作：</p>
+<p><img   src="C:\Users\kzj\AppData\Roaming\Typora\typora-user-images\image-20251008174941984.png"  alt="image-20251008174941984"></p>
+<p><img   src="C:\Users\kzj\AppData\Roaming\Typora\typora-user-images\image-20251008174945638.png"  alt="image-20251008174945638"></p>
+<p><img   src="C:\Users\kzj\AppData\Roaming\Typora\typora-user-images\image-20251008174956810.png"  alt="image-20251008174956810"></p>
+<p><img   src="C:\Users\kzj\AppData\Roaming\Typora\typora-user-images\image-20251008175007717.png"  alt="image-20251008175007717"></p>
+<p>至此，得到了admin的uuid<br> 并且拿到了密码，完成admin的窃取</p>
+<p><img   src="C:\Users\kzj\AppData\Roaming\Typora\typora-user-images\image-20251008175018456.png"  alt="image-20251008175018456"></p>
+<p>现在进到管理员的界面，有一个ban人的功能并且64可以回显64<br> 立刻想到SSTI<br> 但是源码一看天塌了</p>
+<p><img   src="C:\Users\kzj\AppData\Roaming\Typora\typora-user-images\image-20251008175028585.png"  alt="image-20251008175028585"></p>
+<p>不给活路了属于是，所以转头看看其他方法，这个时候我们看到有一个&#x2F;data路由为管理员专属。可以下载附件？看一看</p>
+<p><img   src="C:\Users\kzj\AppData\Roaming\Typora\typora-user-images\image-20251008175039555.png"  alt="image-20251008175039555"></p>
+<p>发现有一个连接程序和一个压缩包，压缩包需要密码，所以工作重心转移到获取密码上。<br> 由于这个连接程序可以查数据库，所以搞一搞？<br> 好吧没什么卵用，主要是sqlite是文件式数据库，而能搞到的文件又只有没用的old.db所以真不知道这个程序有啥用。（虽然连old.db也连不上）<br> 要不咨询一下学长？</p>
+<p>学长:可以试一试扔IDA里面看一看</p>
+<p>彳亍</p>
+<p>好家伙，这个程序根本跑不了是个空壳。<br> 但是这个程序不可能没用的 吧？不然去哪里搞密码<br> 所以怀疑可能是密码被藏里面了<br> 直接全局搜索passoword</p>
+<p><img   src="C:\Users\kzj\AppData\Roaming\Typora\typora-user-images\image-20251008175050784.png"  alt="image-20251008175050784"></p>
+<p>六百六十六题目名都出来了，那是它没错了<br> 果不其然可以打开压缩包</p>
+<p><img   src="C:\Users\kzj\AppData\Roaming\Typora\typora-user-images\image-20251008175101135.png"  alt="image-20251008175101135"></p>
+<p>得到flag，收工。<br> 总结：纯逻辑题，代申不好真的很难受…</p>
+<p>这下不得不刻苦练习了（好吧本来也要）<br> 不然靠AI审计真的太被动了qwq</p>
 
                     
                 </div>
@@ -292,31 +302,15 @@
                 
                     <div class="post-nav border-box">
                         
-                            <div class="prev-post">
-                                <a class="prev"
-                                   rel="prev"
-                                   href="/2025/08/10/SSTI%E5%9F%BA%E7%A1%80/"
-                                   title="SSTI基础"
-                                >
-                                    <span class="left arrow-icon flex-center">
-                                        <i class="fas fa-chevron-left"></i>
-                                    </span>
-                                    <span class="title flex-center">
-                                        <span class="post-nav-title-item text-ellipsis">SSTI基础</span>
-                                        <span class="post-nav-item">上一篇</span>
-                                    </span>
-                                </a>
-                            </div>
-                        
                         
                             <div class="next-post">
                                 <a class="next"
                                    rel="next"
-                                   href="/2025/08/09/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/"
-                                   title="文件上传"
+                                   href="/2025/08/23/XXE/"
+                                   title="XXE"
                                 >
                                     <span class="title flex-center">
-                                        <span class="post-nav-title-item text-ellipsis">文件上传</span>
+                                        <span class="post-nav-title-item text-ellipsis">XXE</span>
                                         <span class="post-nav-item">下一篇</span>
                                     </span>
                                     <span class="right arrow-icon flex-center">
@@ -416,7 +410,7 @@
             <div class="pc-post-toc left-toc">
                 <div class="post-toc-wrap border-box">
     <div class="post-toc border-box">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81rce%E5%87%BD%E6%95%B0"><span class="nav-number">1.</span> <span class="nav-text">常见rce函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81rce%E6%96%B9%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">常见rce方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#php%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E"><span class="nav-number">2.1.</span> <span class="nav-text">php解析漏洞</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%AE%E5%BD%95%E9%81%8D%E5%8E%86%E6%BC%8F%E6%B4%9E"><span class="nav-number">2.2.</span> <span class="nav-text">目录遍历漏洞</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E8%81%94%E5%90%88%E6%89%A7%E8%A1%8C"><span class="nav-number">2.3.</span> <span class="nav-text">命令联合执行</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#rce%E7%BB%95%E8%BF%87"><span class="nav-number">3.</span> <span class="nav-text">rce绕过</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A9%BA%E6%A0%BC%E7%BB%95%E8%BF%87"><span class="nav-number">3.0.1.</span> <span class="nav-text">空格绕过</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cat%E7%A6%81%E7%94%A8"><span class="nav-number">3.0.2.</span> <span class="nav-text">cat禁用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E8%81%94%E6%89%A7%E8%A1%8C"><span class="nav-number">3.0.3.</span> <span class="nav-text">内联执行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%98%E9%87%8F%E6%8B%BC%E6%8E%A5"><span class="nav-number">3.0.4.</span> <span class="nav-text">变量拼接</span></a></li></ol></li></ol></li></ol>
+        
     </div>
 </div>
 
@@ -585,7 +579,7 @@
             <div class="tablet-post-toc">
                 <div class="post-toc-wrap border-box">
     <div class="post-toc border-box">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81rce%E5%87%BD%E6%95%B0"><span class="nav-number">1.</span> <span class="nav-text">常见rce函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81rce%E6%96%B9%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">常见rce方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#php%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E"><span class="nav-number">2.1.</span> <span class="nav-text">php解析漏洞</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%AE%E5%BD%95%E9%81%8D%E5%8E%86%E6%BC%8F%E6%B4%9E"><span class="nav-number">2.2.</span> <span class="nav-text">目录遍历漏洞</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E8%81%94%E5%90%88%E6%89%A7%E8%A1%8C"><span class="nav-number">2.3.</span> <span class="nav-text">命令联合执行</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#rce%E7%BB%95%E8%BF%87"><span class="nav-number">3.</span> <span class="nav-text">rce绕过</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A9%BA%E6%A0%BC%E7%BB%95%E8%BF%87"><span class="nav-number">3.0.1.</span> <span class="nav-text">空格绕过</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cat%E7%A6%81%E7%94%A8"><span class="nav-number">3.0.2.</span> <span class="nav-text">cat禁用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E8%81%94%E6%89%A7%E8%A1%8C"><span class="nav-number">3.0.3.</span> <span class="nav-text">内联执行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%98%E9%87%8F%E6%8B%BC%E6%8E%A5"><span class="nav-number">3.0.4.</span> <span class="nav-text">变量拼接</span></a></li></ol></li></ol></li></ol>
+        
     </div>
 </div>
 
